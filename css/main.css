@@ -76,7 +76,16 @@ main {
   display: flex;
   flex-direction: column;
 }
-
+.back_top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: black;
+}
 .section_container {
   top: 0;
   z-index: 1000;
@@ -108,6 +117,7 @@ main {
 }
 .main_news section h3 {
   padding: 60px 0 0 0;
+  color: #ff5c00;
 }
 .news_container {
   display: flex;
@@ -116,7 +126,9 @@ main {
   border-bottom: 5px #3d3d3d double;
   padding: 0 0 90px 0;
 }
-
+.main_news section:last-child div {
+  border: none;
+}
 .news_container {
   width: fit-content;
 }
