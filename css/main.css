@@ -53,6 +53,7 @@ nav ul {
   list-style-type: none;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 30px;
 }
 
@@ -62,8 +63,13 @@ nav ul li a {
 }
 .search_bar {
   display: flex;
+  border: 1px rgb(0, 0, 0, 0.2) solid;
+  padding: 10px;
+  border-radius: 12px;
 }
-
+.search_bar input {
+  border: none;
+}
 /* Main */
 main {
   width: 90%;
