@@ -70,6 +70,7 @@ nav ul li a {
 .search_bar input {
   border: none;
 }
+
 /* Main */
 main {
   width: 90%;
@@ -85,7 +86,9 @@ main {
   gap: 10px;
   text-decoration: none;
   color: black;
+  font-weight: 600;
 }
+
 .section_container {
   top: 0;
   z-index: 1000;
@@ -107,13 +110,15 @@ main {
   color: black;
   font-weight: 600;
 }
-
+.main_content {
+  display: flex;
+  gap: 60px;
+}
 .main_news {
   display: flex;
   flex-direction: column;
   width: 70%;
   gap: 30px;
-  color: #292219;
 }
 .main_news section h3 {
   padding: 60px 0 0 0;
@@ -122,32 +127,86 @@ main {
 .news_container {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 50px;
   border-bottom: 5px #3d3d3d double;
   padding: 0 0 90px 0;
 }
 .main_news section:last-child div {
   border: none;
 }
+.news_container a,
+.news_container a:visited {
+  color: #292219;
+  text-decoration: none;
+}
+
 .news_container {
   width: fit-content;
 }
-.news_container div {
+.news_container a {
   max-width: 40%;
 }
 
-.news_container div h2 {
+.news_container a h2 {
   font-family: "Publico Headline Web Exbold Regular";
 }
-.news_container div p:last-child {
+.news_container a p:last-child {
   color: rgb(8, 8, 8, 0.5);
 }
+
+.finance_data {
+  display: flex;
+  padding: 60px 0 0 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.finance_data table {
+  width: 90%;
+  border: 1px solid #d5d1c9;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.finance_data th,
+.finance_data td {
+  padding: 10px 20px;
+  border-bottom: 1px solid #eeeeee;
+  text-align: left;
+}
+.finance_data tr:last-child td {
+  border: none;
+}
+
+.finance_data tbody tr:hover {
+  background-color: #eeeeee;
+}
+.finance_data tbody td:first-child {
+  font-weight: bold;
+}
+.finance_data tbody td:nth-child(3),
+.finance_data tbody td:nth-child(4) {
+  color: #ff5c00;
+}
+
 /* footer */
 footer {
   background-color: #292219;
   color: #fff;
   text-align: center;
   padding: 1em 0;
-  bottom: 0;
   width: 100%;
+}
+
+footer div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 200px;
+}
+
+footer div a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
 }

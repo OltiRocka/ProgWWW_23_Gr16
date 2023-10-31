@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Scroll to top
-  var links = document.querySelectorAll('a[href="#"]');
+  var top_links = document.querySelectorAll('a[href="#"]');
 
-  for (var i = 0; i < links.length; i++) {
-    links[i].addEventListener("click", function (e) {
+  for (var i = 0; i < top_links.length; i++) {
+    top_links[i].addEventListener("click", function (e) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
