@@ -14,33 +14,40 @@ header {
   color: black;
   padding: 10px 50px 10px 50px;
   text-align: center;
-  display: flex;
   border-bottom: rgb(0, 0, 0, 0.7) 1px solid;
   align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
 }
 
 .today_container {
   display: flex;
   gap: 10px;
   align-items: center;
+  justify-self: start;
 }
 .today {
   font-size: 14px;
 }
-nav ul {
-  padding: 0;
-  list-style-type: none;
-}
 
-nav ul li {
-  display: inline;
-  margin-right: 20px;
+.title {
+  justify-self: center;
+}
+nav {
+  justify-self: end;
+}
+nav ul {
+  list-style-type: none;
+  display: flex;
+  gap: 30px;
 }
 
 nav ul li a {
   text-decoration: none;
   color: black;
+}
+.search_bar {
+  display: flex;
 }
 
 main {
