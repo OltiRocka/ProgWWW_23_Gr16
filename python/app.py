@@ -3,8 +3,10 @@ from bs4 import BeautifulSoup
 import time
 import random
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 class Scraper:
