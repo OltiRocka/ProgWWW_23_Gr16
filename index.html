@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roka News</title>
     <link rel="stylesheet" href="css/index.css" />
@@ -60,6 +64,9 @@
             a.href = `news.html?id=${article.url}&desc=${article.description}&image=${article.image}&title=${article.title}`;
             a.style.textDecoration = "none";
             a.style.color = "inherit";
+            const image = document.createElement("img");
+            image.src = article.image;
+            a.append(image);
 
             const h2 = document.createElement("h2");
             h2.textContent = article.title;

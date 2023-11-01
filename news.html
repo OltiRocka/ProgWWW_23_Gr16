@@ -2,18 +2,70 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>News Detail</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roka News</title>
+    <link rel="stylesheet" href="css/news.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
   <body>
-    <div id="newsDetail"></div>
-
+    <header>
+      <div class="navigation_container">
+        <div class="today_container">
+          <img src="./assets/globe.png" alt="globe" />
+          <p class="today">Tuesday, October 31, 2023</p>
+        </div>
+        <h1 class="title"><a href="index.html">R<span>o</span>ka News</a></h1>
+        <nav>
+          <ul>
+            <li class="search_bar">
+              <input type="text" />
+              <img src="./assets/search.png" alt="search-icon" />
+            </li>
+            <li><a href="index.html">Latest News</a></li>
+            <li><a href="finance.html">Finance News</a></li>
+            <li><a href="signin.html">Log In</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <a class="back_top" href="#">
+        <p>Back to top</p>
+        <svg
+          width="30"
+          height="30"
+          viewBox="0 0 30 30"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="15" cy="15" r="15" fill="#FF5C00" />
+          <path
+            d="M21.3 17.7L15 11.4L8.7 17.7"
+            stroke="white"
+            stroke-linejoin="bevel"
+          />
+        </svg>
+      </a>
+      <article id="newsDetail"></article>
+    </main>
+    <footer>
+      <div>
+        <a href="mailto:olti@roka.dev" target="_blank">Contact Us</a>
+        <p>&copy; 2023 Roka News</p>
+      </div>
+    </footer>
     <script>
       const urlParams = new URLSearchParams(window.location.search);
       const articleId = urlParams.get("id");
       const title = urlParams.get("title");
       const desc = urlParams.get("desc");
       const image = urlParams.get("image");
+      document.title = title + " | Roka News";
       console.log(desc);
 
       fetch(
@@ -24,27 +76,39 @@
         .then((data) => {
           const container = document.getElementById("newsDetail");
 
-          const articleTitle = document.createElement("h2");
+          const articleTitle = document.createElement("h1");
           articleTitle.innerText = title;
 
-          const articleDescription = document.createElement("p");
-          articleDescription.innerText = desc;
-
+          const articleFigure = document.createElement("figure");
           const articleImage = document.createElement("img");
+          const articleFigCaption = document.createElement("figcaption");
           articleImage.src = image;
+          articleFigCaption.innerText = desc;
 
-          const articleTime = document.createElement("p");
+          articleFigure.append(articleImage);
+          articleFigure.append(articleFigCaption);
+
+          const articleTime = document.createElement("em");
           articleTime.innerText = data.timestamp;
 
-          const articleContent = document.createElement("p");
-          articleContent.innerText = data.content;
+          const paragraphs = data.content.split("\n");
 
+          const paragraphContainer = document.createElement("div");
+
+          paragraphs.forEach((paragraphText) => {
+            if (paragraphText.trim() !== "") {
+              const newParagraph = document.createElement("p");
+              newParagraph.innerText = paragraphText.trim();
+
+              paragraphContainer.appendChild(newParagraph);
+            }
+          });
           container.appendChild(articleTitle);
-          container.appendChild(articleDescription);
-          container.appendChild(articleImage);
           container.appendChild(articleTime);
-          container.appendChild(articleContent);
+          container.appendChild(articleFigure);
+          container.appendChild(paragraphContainer);
         });
     </script>
+    <script src="js/scripts.js"></script>
   </body>
 </html>

@@ -133,7 +133,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
-  border-bottom: 5px #3d3d3d double;
+  border-bottom: 5px #ddd double;
   padding: 0 0 90px 0;
 }
 .main_news section:last-child div {
@@ -149,9 +149,13 @@ main {
   width: fit-content;
 }
 .news_container a {
-  width: 40%;
+  width: 45%;
 }
 
+.news_container img {
+  width: 100%;
+  object-fit: cover;
+}
 .news_container a h2 {
   font-family: "Publico Headline Web Exbold Regular";
 }
@@ -196,8 +200,8 @@ main {
 
 /* footer */
 footer {
-  background-color: #292219;
-  color: #fff;
+  background-color: #1d1d1d;
+  color: #ffffff;
   text-align: center;
   padding: 1em 0;
   width: 100%;
