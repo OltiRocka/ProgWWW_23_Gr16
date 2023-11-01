@@ -11,10 +11,9 @@
         // Get the news data dynamically
         const mainNews = document.querySelector(".main_news");
 
-        // Define the URL of the Flask API endpoint for category data
-        const apiUrl = "https://news-olti-roka.onrender.com/category/";
+        const apiUrl =
+          "http://olti-news.eu-central-1.elasticbeanstalk.com/category/";
 
-        // Define an array of categories
         const categories = [
           "us",
           "world",
@@ -28,7 +27,6 @@
           "sports",
         ];
 
-        // Function to fetch data for a category
         async function fetchCategoryData(category) {
           try {
             const response = await fetch(apiUrl + category);
@@ -43,7 +41,6 @@
           }
         }
 
-        // Iterate through each category and fetch data
         for (const category of categories) {
           const categoryData = await fetchCategoryData(category);
 
@@ -60,7 +57,7 @@
             const article = categoryData[i];
 
             const a = document.createElement("a");
-            a.href = `news.html?id=${article.id}`;
+            a.href = `news.html?id=${article.url}`;
             a.style.textDecoration = "none";
             a.style.color = "inherit";
 
