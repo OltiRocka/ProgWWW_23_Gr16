@@ -41,6 +41,10 @@ header {
 .title {
   font-family: "Publico Headline Web Exbold Regular";
   justify-self: center;
+  font-size: 48px;
+}
+.title span {
+  color: #ff5c00;
 }
 .title a {
   text-decoration: none;
@@ -69,6 +73,7 @@ nav ul li a {
 }
 .search_bar input {
   border: none;
+  outline: none;
 }
 
 /* Main */
