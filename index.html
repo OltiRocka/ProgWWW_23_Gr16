@@ -7,6 +7,57 @@
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/responsive.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get the news data dynamically
+        fetch("./assets/news.json")
+          .then((response) => response.json())
+          .then((data) => {
+            const mainNews = document.querySelector(".main_news");
+
+            data.forEach((categoryData) => {
+              const section = document.createElement("section");
+              section.id = categoryData.category;
+              const h3 = document.createElement("h3");
+              h3.textContent = categoryData.category;
+              section.appendChild(h3);
+
+              const newsContainer = document.createElement("div");
+              newsContainer.classList.add("news_container");
+
+              for (
+                let i = 0;
+                i < Math.min(4, categoryData.articles.length);
+                i++
+              ) {
+                const article = categoryData.articles[i];
+
+                const a = document.createElement("a");
+                a.href = `news.html?id=${article.id}`;
+                a.style.textDecoration = "none";
+                a.style.color = "inherit";
+
+                const h2 = document.createElement("h2");
+                h2.textContent = article.title;
+                a.appendChild(h2);
+
+                const pDesc = document.createElement("p");
+                pDesc.textContent = article.description;
+                a.appendChild(pDesc);
+
+                const pTime = document.createElement("p");
+                pTime.textContent = article.time;
+                a.appendChild(pTime);
+
+                newsContainer.appendChild(a);
+              }
+
+              section.appendChild(newsContainer);
+              mainNews.appendChild(section);
+            });
+          });
+      });
+    </script>
   </head>
   <body>
     <header>
@@ -49,678 +100,16 @@
       </a>
       <div class="section_container">
         <ul>
-          <li><a href="#politics">Politics</a></li>
-          <li><a href="#business">Business</a></li>
-          <li><a href="#world">World</a></li>
-          <li><a href="#entertainment">Entertainment</a></li>
-          <li><a href="#sports">Sports</a></li>
+          <li><a href="#Politics">Politics</a></li>
+          <li><a href="#Business">Business</a></li>
+          <li><a href="#World">World</a></li>
+          <li><a href="#Entertainment">Entertainment</a></li>
+          <li><a href="#Sports">Sports</a></li>
         </ul>
       </div>
       <div class="main_content">
-        <div class="main_news">
-          <section id="politics">
-            <h3>Politics</h3>
-            <div class="news_container">
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-            </div>
-          </section>
-          <section id="business">
-            <h3>Business</h3>
-            <div class="news_container">
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-            </div>
-          </section>
-          <section id="world">
-            <h3>World</h3>
-            <div class="news_container">
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-            </div>
-          </section>
-          <section id="entertainment">
-            <h3>Entertainment</h3>
-            <div class="news_container">
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-            </div>
-          </section>
-          <section id="sports">
-            <h3>Sports</h3>
-            <div class="news_container">
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Gold hits eight-month low as higher bond yields dent its
-                  appeal
-                </h2>
-                <p>
-                  Exchange traded funds tracking the metal sustain biggest
-                  outflows in a year
-                </p>
-                <p>2 hour ago</p>
-              </a>
-              <a href="news.html" style="text-decoration: none; color: inherit">
-                <h2>
-                  Spac led by tech founders targets Europe’s unicorns for US
-                  listings
-                </h2>
-                <p>
-                  Tailwind International looks to bypass EU and UK markets to
-                  build a European tech franchise
-                </p>
-                <p>Yesterday</p>
-              </a>
-            </div>
-          </section>
-        </div>
-        <div class="finance_data">
-          <div>
-            <h3>S&P 500</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Price</th>
-                  <th>Change</th>
-                  <th>Change(%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>10/23</td>
-                  <td>1000</td>
-                  <td>+ 50</td>
-                  <td>+ 5%</td>
-                </tr>
-                <tr>
-                  <td>09/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>08/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>07/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>06/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>05/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <h3>S&P 500</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Price</th>
-                  <th>Change</th>
-                  <th>Change(%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>10/23</td>
-                  <td>1000</td>
-                  <td>+ 50</td>
-                  <td>+ 5%</td>
-                </tr>
-                <tr>
-                  <td>09/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>08/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>07/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>06/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>05/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <h3>S&P 500</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Price</th>
-                  <th>Change</th>
-                  <th>Change(%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>10/23</td>
-                  <td>1000</td>
-                  <td>+ 50</td>
-                  <td>+ 5%</td>
-                </tr>
-                <tr>
-                  <td>09/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>08/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>07/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>06/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>05/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <h3>S&P 500</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Price</th>
-                  <th>Change</th>
-                  <th>Change(%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>10/23</td>
-                  <td>1000</td>
-                  <td>+ 50</td>
-                  <td>+ 5%</td>
-                </tr>
-                <tr>
-                  <td>09/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>08/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>07/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>06/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>05/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <h3>S&P 500</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Price</th>
-                  <th>Change</th>
-                  <th>Change(%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>10/23</td>
-                  <td>1000</td>
-                  <td>+ 50</td>
-                  <td>+ 5%</td>
-                </tr>
-                <tr>
-                  <td>09/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>08/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>07/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>06/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>05/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <h3>S&P 500</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Price</th>
-                  <th>Change</th>
-                  <th>Change(%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>10/23</td>
-                  <td>1000</td>
-                  <td>+ 50</td>
-                  <td>+ 5%</td>
-                </tr>
-                <tr>
-                  <td>09/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>08/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>07/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>06/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>05/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <h3>S&P 500</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Price</th>
-                  <th>Change</th>
-                  <th>Change(%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>10/23</td>
-                  <td>1000</td>
-                  <td>+ 50</td>
-                  <td>+ 5%</td>
-                </tr>
-                <tr>
-                  <td>09/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>08/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>07/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>06/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>05/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <h3>S&P 500</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Price</th>
-                  <th>Change</th>
-                  <th>Change(%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>10/23</td>
-                  <td>1000</td>
-                  <td>+ 50</td>
-                  <td>+ 5%</td>
-                </tr>
-                <tr>
-                  <td>09/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>08/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>07/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>06/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-                <tr>
-                  <td>05/23</td>
-                  <td>1050</td>
-                  <td>+ 30</td>
-                  <td>+ 2.85%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <div class="main_news"></div>
+        <div class="finance_data"></div>
       </div>
     </main>
     <footer>

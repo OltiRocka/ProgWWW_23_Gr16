@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>News Detail</title>
+  </head>
+
+  <body>
+    <div id="newsDetail"></div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const articleId = urlParams.get("id");
+
+      fetch("./assets/news.json")
+        .then((response) => response.json())
+        .then((data) => {
+          const allArticles = [];
+          data.forEach((category) => allArticles.push(...category.articles));
+
+          const article = allArticles.find(
+            (article) => article.id == articleId
+          );
+
+          if (article) {
+            const container = document.getElementById("newsDetail");
+
+            const articleTitle = document.createElement("h2");
+            articleTitle.innerText = article.title;
+
+            const articleDescription = document.createElement("p");
+            articleDescription.innerText = article.description;
+
+            const articleTime = document.createElement("p");
+            articleTime.innerText = article.time;
+
+            container.appendChild(articleTitle);
+            container.appendChild(articleDescription);
+            container.appendChild(articleTime);
+          }
+        });
+    </script>
+  </body>
+</html>

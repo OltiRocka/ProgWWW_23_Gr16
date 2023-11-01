@@ -1,0 +1,153 @@
+[
+  {
+    "category": "Politics",
+    "articles": [
+      {
+        "id": 1,
+        "title": "New Bill Passed in Senate",
+        "description": "The new bill proposes improved infrastructure in rural areas.",
+        "time": "2 hours ago"
+      },
+      {
+        "id": 2,
+        "title": "Mayoral Election Results",
+        "description": "Incumbent mayor loses to a new contender in a surprise twist.",
+        "time": "Yesterday"
+      },
+      {
+        "id": 3,
+        "title": "Trade Agreements Under Scrutiny",
+        "description": "Trade deals with neighboring countries are being revisited.",
+        "time": "3 days ago"
+      },
+      {
+        "id": 4,
+        "title": "Political Rally Draws Thousands",
+        "description": "Citizens gather to show support for their preferred candidate.",
+        "time": "1 week ago"
+      },
+      {
+        "id": 5,
+        "title": "Excess Article for Testing",
+        "description": "This article should not appear in the final output.",
+        "time": "2 weeks ago"
+      }
+    ]
+  },
+  {
+    "category": "Business",
+    "articles": [
+      {
+        "id": 6,
+        "title": "Stock Market Hits New High",
+        "description": "Investors are optimistic about the new fiscal year.",
+        "time": "4 hours ago"
+      },
+      {
+        "id": 7,
+        "title": "Company Merges with Rival",
+        "description": "Two leading firms announce unexpected merger.",
+        "time": "2 days ago"
+      },
+      {
+        "id": 8,
+        "title": "Tech Startups See Surge in Investments",
+        "description": "Venture capitalists are showing interest in new tech innovations.",
+        "time": "Yesterday"
+      },
+      {
+        "id": 9,
+        "title": "Manufacturing Industry Faces Shortages",
+        "description": "Supply chain disruptions cause concerns in the industry.",
+        "time": "1 month ago"
+      }
+    ]
+  },
+  {
+    "category": "World",
+    "articles": [
+      {
+        "id": 10,
+        "title": "Natural Disaster Strikes Coastal Region",
+        "description": "Residents are advised to evacuate as hurricane approaches.",
+        "time": "5 hours ago"
+      },
+      {
+        "id": 11,
+        "title": "Peace Talks Resume in War-torn Area",
+        "description": "International community hopeful for a resolution.",
+        "time": "2 weeks ago"
+      },
+      {
+        "id": 12,
+        "title": "Historic Summit Announced",
+        "description": "World leaders to discuss pressing global issues.",
+        "time": "1 day ago"
+      },
+      {
+        "id": 13,
+        "title": "Country Celebrates National Day",
+        "description": "Parades and cultural events mark the national celebration.",
+        "time": "1 week ago"
+      }
+    ]
+  },
+  {
+    "category": "Entertainment",
+    "articles": [
+      {
+        "id": 14,
+        "title": "New Movie Breaks Box Office Records",
+        "description": "The much-anticipated film receives rave reviews.",
+        "time": "3 hours ago"
+      },
+      {
+        "id": 15,
+        "title": "Music Festival Lineup Announced",
+        "description": "Top artists set to perform at the annual event.",
+        "time": "Yesterday"
+      },
+      {
+        "id": 16,
+        "title": "TV Show Renewed for Another Season",
+        "description": "Fans rejoice as popular series gets extended.",
+        "time": "1 week ago"
+      },
+      {
+        "id": 17,
+        "title": "Artist Releases New Album",
+        "description": "The album features collaborations with several big names.",
+        "time": "3 days ago"
+      }
+    ]
+  },
+  {
+    "category": "Sports",
+    "articles": [
+      {
+        "id": 18,
+        "title": "Team Wins Championship Trophy",
+        "description": "After a thrilling final, the best team emerges victoriously.",
+        "time": "2 hours ago"
+      },
+      {
+        "id": 19,
+        "title": "Player Breaks World Record",
+        "description": "Athlete sets a new world record in international competition.",
+        "time": "4 days ago"
+      },
+      {
+        "id": 20,
+        "title": "Sports League Announces New Season Dates",
+        "description": "Fans eagerly await the return of their favorite sports league.",
+        "time": "1 day ago"
+      },
+      {
+        "id": 21,
+        "title": "Stadium Undergoes Renovations",
+        "description": "Modern upgrades promise a better experience for attendees.",
+        "time": "2 weeks ago"
+      }
+    ]
+  }
+]

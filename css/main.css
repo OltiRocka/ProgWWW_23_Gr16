@@ -144,7 +144,7 @@ main {
   width: fit-content;
 }
 .news_container a {
-  max-width: 40%;
+  width: 40%;
 }
 
 .news_container a h2 {
