@@ -30,7 +30,7 @@ class Scraper:
         ]
 
     def _fetch(self, url):
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=self.headers)
         print(response.status_code)
         return response.content if response.status_code == 200 else ""
 
