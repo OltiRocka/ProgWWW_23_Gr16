@@ -103,7 +103,3 @@ def category_news(category):
 def article_content(url):
     content, timestamp = scraper.get_content(url)
     return jsonify({"content": content, "timestamp": timestamp})
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
