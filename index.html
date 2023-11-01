@@ -47,7 +47,7 @@
           const section = document.createElement("section");
           section.id = category;
           const h3 = document.createElement("h3");
-          h3.textContent = category;
+          h3.textContent = category.toUpperCase();
           section.appendChild(h3);
 
           const newsContainer = document.createElement("div");
@@ -55,9 +55,9 @@
 
           for (let i = 0; i < Math.min(4, categoryData.length); i++) {
             const article = categoryData[i];
-
+            console.log(article);
             const a = document.createElement("a");
-            a.href = `news.html?id=${article.url}`;
+            a.href = `news.html?id=${article.url}&desc=${article.description}&image=${article.image}&title=${article.title}`;
             a.style.textDecoration = "none";
             a.style.color = "inherit";
 
@@ -123,11 +123,16 @@
       </a>
       <div class="section_container">
         <ul>
-          <li><a href="#Politics">Politics</a></li>
-          <li><a href="#Business">Business</a></li>
-          <li><a href="#World">World</a></li>
-          <li><a href="#Entertainment">Entertainment</a></li>
-          <li><a href="#Sports">Sports</a></li>
+          <li><a href="#us">US</a></li>
+          <li><a href="#world">World</a></li>
+          <li><a href="#politics">Politics</a></li>
+          <li><a href="#business">Business</a></li>
+          <li><a href="#opinions">Opinions</a></li>
+          <li><a href="#health">Health</a></li>
+          <li><a href="#entertainment">Entertainment</a></li>
+          <li><a href="#style">Style</a></li>
+          <li><a href="#travel">Travel</a></li>
+          <li><a href="#sports">Sports</a></li>
         </ul>
       </div>
       <div class="main_content">

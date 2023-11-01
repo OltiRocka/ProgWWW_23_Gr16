@@ -11,33 +11,39 @@
     <script>
       const urlParams = new URLSearchParams(window.location.search);
       const articleId = urlParams.get("id");
+      const title = urlParams.get("title");
+      const desc = urlParams.get("desc");
+      const image = urlParams.get("image");
+      console.log(desc);
 
-      fetch("./assets/news.json")
+      fetch(
+        "http://olti-news.eu-central-1.elasticbeanstalk.com/article/" +
+          articleId
+      )
         .then((response) => response.json())
         .then((data) => {
-          const allArticles = [];
-          data.forEach((category) => allArticles.push(...category.articles));
+          const container = document.getElementById("newsDetail");
 
-          const article = allArticles.find(
-            (article) => article.id == articleId
-          );
+          const articleTitle = document.createElement("h2");
+          articleTitle.innerText = title;
 
-          if (article) {
-            const container = document.getElementById("newsDetail");
+          const articleDescription = document.createElement("p");
+          articleDescription.innerText = desc;
 
-            const articleTitle = document.createElement("h2");
-            articleTitle.innerText = article.title;
+          const articleImage = document.createElement("img");
+          articleImage.src = image;
 
-            const articleDescription = document.createElement("p");
-            articleDescription.innerText = article.description;
+          const articleTime = document.createElement("p");
+          articleTime.innerText = data.timestamp;
 
-            const articleTime = document.createElement("p");
-            articleTime.innerText = article.time;
+          const articleContent = document.createElement("p");
+          articleContent.innerText = data.content;
 
-            container.appendChild(articleTitle);
-            container.appendChild(articleDescription);
-            container.appendChild(articleTime);
-          }
+          container.appendChild(articleTitle);
+          container.appendChild(articleDescription);
+          container.appendChild(articleImage);
+          container.appendChild(articleTime);
+          container.appendChild(articleContent);
         });
     </script>
   </body>

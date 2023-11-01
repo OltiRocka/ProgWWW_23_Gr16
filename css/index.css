@@ -105,8 +105,8 @@ main {
   justify-content: center;
 }
 .section_container ul {
-  width: 40%;
   list-style-type: none;
+  gap: 50px;
   display: flex;
   justify-content: space-between;
 }
