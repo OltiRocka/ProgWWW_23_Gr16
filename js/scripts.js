@@ -192,10 +192,10 @@ async function getArticleContent(url) {
   }
 }
 
-async function getSearch(search, page) {
+async function getSearch(search, page, sort) {
   const apiUrl = `https://corsproxy.io/?https://search.prod.di.api.cnn.io/content?q=${search}&size=10&from=${
     (page - 1) * 10
-  }&page=${page}&sort=newest`;
+  }&page=${page}&sort=${sort}`;
 
   try {
     const response = await fetch(apiUrl);
@@ -207,8 +207,9 @@ async function getSearch(search, page) {
     const data = await response.json();
     const pages = Math.round((data["meta"]["of"] + 5) / 10);
     const news = data["result"];
+    const meta = data["meta"];
 
-    return { pages, news };
+    return { pages, news, meta };
   } catch (error) {
     console.error("Error:", error);
     return null;
@@ -219,8 +220,9 @@ function createSearchNews(results) {
   const searchContainer = document.querySelector(".search_results");
   results.forEach((result) => {
     const resultContainer = document.createElement("a");
-    const imageContainer = document.createElement("img");
+    const imageContainer = document.createElement("div");
     const textContainer = document.createElement("div");
+    const image = document.createElement("img");
     const header = document.createElement("h2");
     const timestamp = document.createElement("em");
     const description = document.createElement("p");
@@ -233,8 +235,8 @@ function createSearchNews(results) {
     }`;
     resultContainer.classList.add("search_item");
     textContainer.classList.add("search_info");
-
-    imageContainer.src = result["thumbnail"];
+    imageContainer.classList.add("image_container");
+    image.src = result["thumbnail"];
     header.innerText = result["headline"];
     timestamp.innerText = result["lastModifiedDate"];
     description.innerText = result["body"];
@@ -243,6 +245,12 @@ function createSearchNews(results) {
     textContainer.appendChild(timestamp);
     textContainer.appendChild(description);
 
+    if (result["url"].includes("videos/")) {
+      const videoTag = document.createElement("b");
+      videoTag.innerText = "VIDEO";
+      imageContainer.appendChild(videoTag);
+    }
+    imageContainer.appendChild(image);
     resultContainer.appendChild(imageContainer);
     resultContainer.appendChild(textContainer);
 
@@ -298,4 +306,11 @@ function createPagination(totalPages, currentPage, search) {
     nextLink.addEventListener("click", (e) => e.preventDefault());
   }
   paginationContainer.appendChild(nextLink);
+}
+
+function changeSort(buttonElement) {
+  const currentSort = buttonElement.value;
+  const urlParams = new URLSearchParams(window.location.search);
+  urlParams.set("sort", currentSort);
+  window.location.search = urlParams.toString();
 }

@@ -14,10 +14,27 @@
         const urlParams = new URLSearchParams(window.location.search);
         const search = urlParams.get("q");
         const page = urlParams.get("page");
+        const sort = urlParams.get("sort") || "newest";
+        const searchData = await getSearch(search, page ? page : 1, sort);
+
         document.title = `Search: ${search} | Roka News`;
-        const searchData = await getSearch(search, page ? page : 1);
+        const sortButtons = document.querySelectorAll("button");
+        sortButtons.forEach((btn) => {
+          if (btn.value === sort) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
         createPagination(searchData.pages, page ? parseInt(page) : 1, search);
         createSearchNews(searchData.news);
+
+        const count = document.getElementById("results_count");
+        const boldElement = document.createElement("b");
+        boldElement.innerText = search;
+        count.innerHTML = "";
+        count.innerText = ` Showing ${searchData.meta["start"]} - ${searchData.meta["end"]} out of ${searchData.meta["of"]} for `;
+        count.appendChild(boldElement);
       });
     </script>
   </head>
@@ -65,9 +82,14 @@
         </svg>
       </a>
       <div class="info">
-        <p></p>
+        <p id="results_count"></p>
+
         <div class="sort">
           <p>Sorting By</p>
+          <button value="newest" onclick="changeSort(this)">Newest</button>
+          <button value="relevance" onclick="changeSort(this)">
+            Relevance
+          </button>
         </div>
       </div>
       <div class="search_results"></div>

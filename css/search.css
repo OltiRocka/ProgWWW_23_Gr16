@@ -161,6 +161,39 @@ a.disabled {
   width: 80%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.sort {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.sort p {
+  color: #555;
+}
+
+.sort button {
+  padding: 12px 16px;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 12px;
+  border: 2px #1d1d1d solid;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.sort button:hover {
+  background-color: #f7f7f7;
+}
+
+.sort button.active {
+  background-color: #1d1d1d;
+  border-color: #ddd;
+  color: #ddd;
+  pointer-events: none;
+  cursor: auto;
 }
 .search_results {
   width: 70%;
@@ -174,10 +207,25 @@ a.disabled {
   text-decoration: none;
   gap: 50px;
   padding: 20px;
+  width: 100%;
   border-bottom: 2px #ddd solid;
 }
-.search_results a img {
-  width: 30%;
+.image_container {
+  position: relative;
+  width: 400px;
+}
+.image_container img {
+  width: inherit;
+}
+.image_container b {
+  background-color: #ff5c00;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: white;
+  border-radius: 12px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .search_results a h2 {
