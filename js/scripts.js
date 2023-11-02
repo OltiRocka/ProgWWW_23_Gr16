@@ -97,8 +97,8 @@ function playSelectedStation() {
   }
 }
 function getCategoryNews(category) {
-  const base_url = "https://edition.cnn.com/";
-  const url = `${base_url}${category}`;
+  const base_url = "https://edition.cnn.com";
+  const url = `${base_url}/${category}`;
 
   return fetch(url)
     .then((response) => response.text())
@@ -112,14 +112,15 @@ function getCategoryNews(category) {
       cardElements.forEach((card) => {
         const headlineElement = card.querySelector(".container__headline-text");
         const imgElement = card.querySelector("img");
+        const aElement = card.querySelector("a");
+
         if (headlineElement && imgElement) {
           const id = Date.now() + Math.random();
           const title = headlineElement.textContent.trim();
           const description = imgElement.getAttribute("alt");
           const image = imgElement.getAttribute("src");
-          const articleURL =
-            base_url + headlineElement.parentNode.getAttribute("href");
-
+          const articleURL = base_url + aElement.getAttribute("href");
+          console.log(aElement);
           newsData.push({
             id,
             title,
@@ -135,5 +136,28 @@ function getCategoryNews(category) {
     .catch((error) => {
       console.error(error);
       throw error;
+    });
+}
+
+function getArticleContent(url) {
+  return fetch(url)
+    .then((response) => response.text())
+    .then((html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      const contentElement = doc.querySelector(".article__content");
+      const timestampElement = doc.querySelector(".timestamp");
+
+      const content = contentElement ? contentElement.textContent.trim() : "";
+      const timestamp = timestampElement
+        ? timestampElement.textContent.trim()
+        : "";
+
+      return { content, timestamp };
+    })
+    .catch((error) => {
+      console.error(error);
+      return { error: "An error occurred while fetching data." };
     });
 }

@@ -6,6 +6,53 @@
     <title>Roka News</title>
     <link rel="stylesheet" href="css/news.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include your scripts.js file first -->
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get("id");
+        const title = urlParams.get("title");
+        const desc = urlParams.get("desc");
+        const image = urlParams.get("image");
+        document.title = title + " | Roka News";
+        console.log(articleId);
+        const articleData = await getArticleContent(articleId);
+        console.log(articleData);
+        const container = document.getElementById("newsDetail");
+
+        const articleTitle = document.createElement("h1");
+        articleTitle.innerText = title;
+
+        const articleFigure = document.createElement("figure");
+        const articleImage = document.createElement("img");
+        const articleFigCaption = document.createElement("figcaption");
+        articleImage.src = image;
+        articleFigCaption.innerText = desc;
+
+        articleFigure.append(articleImage);
+        articleFigure.append(articleFigCaption);
+
+        const articleTime = document.createElement("em");
+        articleTime.innerText = articleData.timestamp;
+
+        const paragraphs = articleData.content.split("\n");
+
+        const paragraphContainer = document.createElement("div");
+
+        paragraphs.forEach((paragraphText) => {
+          if (paragraphText.trim() !== "") {
+            const newParagraph = document.createElement("p");
+            newParagraph.innerText = paragraphText.trim();
+
+            paragraphContainer.appendChild(newParagraph);
+          }
+        });
+        container.appendChild(articleTitle);
+        container.appendChild(articleTime);
+        container.appendChild(articleFigure);
+        container.appendChild(paragraphContainer);
+      });
+    </script>
   </head>
 
   <body>
@@ -55,56 +102,6 @@
         <p>&copy; 2023 Roka News</p>
       </div>
     </footer>
-    <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const articleId = urlParams.get("id");
-      const title = urlParams.get("title");
-      const desc = urlParams.get("desc");
-      const image = urlParams.get("image");
-      document.title = title + " | Roka News";
-      console.log(desc);
-
-      fetch(
-        "http://olti-news.eu-central-1.elasticbeanstalk.com/article/" +
-          articleId
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          const container = document.getElementById("newsDetail");
-
-          const articleTitle = document.createElement("h1");
-          articleTitle.innerText = title;
-
-          const articleFigure = document.createElement("figure");
-          const articleImage = document.createElement("img");
-          const articleFigCaption = document.createElement("figcaption");
-          articleImage.src = image;
-          articleFigCaption.innerText = desc;
-
-          articleFigure.append(articleImage);
-          articleFigure.append(articleFigCaption);
-
-          const articleTime = document.createElement("em");
-          articleTime.innerText = data.timestamp;
-
-          const paragraphs = data.content.split("\n");
-
-          const paragraphContainer = document.createElement("div");
-
-          paragraphs.forEach((paragraphText) => {
-            if (paragraphText.trim() !== "") {
-              const newParagraph = document.createElement("p");
-              newParagraph.innerText = paragraphText.trim();
-
-              paragraphContainer.appendChild(newParagraph);
-            }
-          });
-          container.appendChild(articleTitle);
-          container.appendChild(articleTime);
-          container.appendChild(articleFigure);
-          container.appendChild(paragraphContainer);
-        });
-    </script>
     <script src="js/scripts.js"></script>
   </body>
 </html>
