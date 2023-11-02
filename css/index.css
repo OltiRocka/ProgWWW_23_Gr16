@@ -165,10 +165,65 @@ main {
 
 .finance_data {
   display: flex;
-  padding: 60px 0 0 0;
+  padding: 100px 0 0 0;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+} /* Style for the radio container */
+.radio_container {
+  text-align: center;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(90% - 20px);
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the radios section */
+.radios {
+  margin-bottom: 20px;
+}
+
+/* Style for the select dropdown */
+#radio-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
+  background-color: #fff;
+  color: #333;
+}
+#radio-select:focus {
+  border: 1px solid #ccc;
+}
+/* Style for the audio player */
+#radio-player {
+  max-width: 100%;
+}
+
+/* Style for the default select option */
+#radio-select option:first-child {
+  color: #888;
+}
+
+/* Style for the selected radio station */
+#radio-select option:checked {
+  font-weight: bold;
+  background-color: #ffe7a0;
+  color: #333;
+}
+.player {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+}
+.player img {
+  width: 50px;
+  border-radius: 20px;
 }
 
 .finance_data table {

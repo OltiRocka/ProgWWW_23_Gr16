@@ -55,7 +55,6 @@
 
           for (let i = 0; i < Math.min(4, categoryData.length); i++) {
             const article = categoryData[i];
-            console.log(article);
             const a = document.createElement("a");
             a.href = `news.html?id=${article.url}&desc=${article.description}&image=${article.image}&title=${article.title}`;
             a.style.textDecoration = "none";
@@ -140,7 +139,39 @@
       </div>
       <div class="main_content">
         <div class="main_news"></div>
-        <div class="finance_data"></div>
+        <div class="finance_data">
+          <div class="radio_container">
+            <div class="radios">
+              <select id="radio-select" onchange="playSelectedStation()">
+                <option value="">Select a radio station</option>
+                <option
+                  value="https://s2.voscast.com:8825/radiodukagjini"
+                  data-img="https://www.dukagjini.com/wp-content/uploads/2022/06/RadioDukagjini.jpg"
+                >
+                  Radio Dukagjini
+                </option>
+                <option
+                  value="https://s1.voscast.com:11605/shqipradio"
+                  data-img="https://www.dukagjini.com/wp-content/uploads/2022/06/RadioShqip.jpg"
+                >
+                  Shqip Radio
+                </option>
+                <option
+                  value="https://s1.voscast.com:11607/loveradio"
+                  data-img="https://www.dukagjini.com/wp-content/uploads/2022/06/RadioLove.jpg"
+                >
+                  Love Radio
+                </option>
+              </select>
+            </div>
+            <div class="player">
+              <img id="radio-logo" class="radio-logo" src="" alt="Radio Logo" />
+              <audio id="radio-player" controls>
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
     <footer>
@@ -149,7 +180,7 @@
         <p>&copy; 2023 Roka News</p>
       </div>
     </footer>
-
     <script src="js/scripts.js"></script>
+    <script src="js/jquery.js"></script>
   </body>
 </html>

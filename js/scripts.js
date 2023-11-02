@@ -76,3 +76,26 @@ function appendDataToDOM(symbol, tableData) {
 
   document.querySelector(".finance_data").innerHTML += tableHTML;
 }
+function playSelectedStation() {
+  const radioSelect = document.getElementById("radio-select");
+  const radioPlayer = document.getElementById("radio-player");
+  const radioLogo = document.getElementById("radio-logo");
+  const selectedOption = radioSelect.options[radioSelect.selectedIndex];
+  const selectedValue = selectedOption.value;
+  const selectedDataImg = selectedOption.getAttribute("data-img");
+  console.log(selectedDataImg);
+  if (selectedValue) {
+    radioPlayer.src = selectedValue;
+    radioPlayer.load();
+    radioPlayer.play();
+
+    // Set the radio logo based on the data-img attribute
+    radioLogo.src = selectedDataImg;
+    radioLogo.style.display = "block"; // Show the logo
+  } else {
+    // Clear the audio source and hide the logo if no station is selected
+    radioPlayer.src = "";
+    radioPlayer.pause();
+    radioLogo.style.display = "none"; // Hide the logo
+  }
+}
