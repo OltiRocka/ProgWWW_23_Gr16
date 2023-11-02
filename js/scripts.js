@@ -1,23 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var tablesAppended = false;
-  // Scroll to Section
-  var links = document.querySelectorAll('a[href^="#"]');
-
-  for (var i = 0; i < links.length; i++) {
-    links[i].addEventListener("click", function (e) {
-      e.preventDefault();
-
-      var targetID = this.getAttribute("href");
-      var target = document.querySelector(targetID);
-
-      if (targetID === "#") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-  }
-
   // Scroll to top
   var top_links = document.querySelectorAll('a[href="#"]');
 
@@ -29,18 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Create stock Tables
-  fetch("./assets/stocks.json")
-    .then((response) => response.json())
-    .then((data) => {
-      if (!tablesAppended) {
-        const symbols = Object.keys(data);
-        symbols.forEach((symbol) => {
-          const tableData = data[symbol].slice(0, 6);
-          appendDataToDOM(symbol, tableData);
-        });
-        tablesAppended = true;
-      }
-    });
 });
 
 function appendDataToDOM(symbol, tableData) {
@@ -221,4 +190,62 @@ async function getArticleContent(url) {
       vidUrl: "",
     };
   }
+}
+
+async function getSearch(search, page) {
+  const apiUrl = `https://corsproxy.io/?https://search.prod.di.api.cnn.io/content?q=${search}&size=10&from=${
+    (page - 1) * 10
+  }&page=${page}&sort=newest`;
+
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    const pages = Math.round((data["meta"]["of"] + 5) / 10);
+    const news = data["result"];
+
+    return { pages, news };
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+}
+function createPagination(totalPages, currentPage, search) {
+  const paginationContainer = document.querySelector(".pagination");
+
+  paginationContainer.innerHTML = "";
+  const prevLink = document.createElement("a");
+  prevLink.href = `?q=${search}&page=${currentPage - 1}`;
+  prevLink.textContent = "Previous";
+  prevLink.classList.add("prev_back");
+
+  if (currentPage == 1) {
+    prevLink.classList.add("disabled");
+    prevLink.addEventListener("click", (e) => e.preventDefault());
+  }
+
+  paginationContainer.appendChild(prevLink);
+
+  for (let i = 1; i <= totalPages; i++) {
+    const pageLink = document.createElement("a");
+    pageLink.href = `?q=${search}&page=${i}`;
+    pageLink.textContent = i;
+    if (i === currentPage) {
+      pageLink.classList.add("active");
+    }
+    paginationContainer.appendChild(pageLink);
+  }
+  const nextLink = document.createElement("a");
+  nextLink.href = `?q=${search}&page=${currentPage + 1}`;
+  nextLink.textContent = "Next";
+  nextLink.classList.add("prev_back");
+  if (currentPage == totalPages) {
+    prevLink.classList.add("disabled");
+    prevLink.addEventListener("click", (e) => e.preventDefault());
+  }
+  paginationContainer.appendChild(nextLink);
 }

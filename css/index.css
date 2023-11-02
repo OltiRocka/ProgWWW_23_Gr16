@@ -66,16 +66,22 @@ nav ul li a {
   color: black;
 }
 .search_bar {
-  display: flex;
   border: 1px rgb(0, 0, 0, 0.2) solid;
-  padding: 10px;
+  padding: 5px;
   border-radius: 12px;
+}
+.search_bar form {
+  display: flex;
 }
 .search_bar input {
   border: none;
   outline: none;
 }
-
+.search_bar button {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
 /* Main */
 main {
   width: 90%;

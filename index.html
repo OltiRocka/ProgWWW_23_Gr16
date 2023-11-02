@@ -76,6 +76,36 @@
           section.appendChild(newsContainer);
           mainNews.appendChild(section);
         }
+        var tablesAppended = false;
+        // Scroll to Section
+        var links = document.querySelectorAll('a[href^="#"]');
+
+        for (var i = 0; i < links.length; i++) {
+          links[i].addEventListener("click", function (e) {
+            e.preventDefault();
+
+            var targetID = this.getAttribute("href");
+            var target = document.querySelector(targetID);
+
+            if (targetID === "#") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
+          });
+          fetch("./assets/stocks.json")
+            .then((response) => response.json())
+            .then((data) => {
+              if (!tablesAppended) {
+                const symbols = Object.keys(data);
+                symbols.forEach((symbol) => {
+                  const tableData = data[symbol].slice(0, 6);
+                  appendDataToDOM(symbol, tableData);
+                });
+                tablesAppended = true;
+              }
+            });
+        }
       });
     </script>
   </head>
@@ -90,8 +120,12 @@
         <nav>
           <ul>
             <li class="search_bar">
-              <input type="text" />
-              <img src="./assets/search.png" alt="search-icon" />
+              <form action="/search.html" id="searchForm" method="get">
+                <input type="text" id="searchInput" name="q" required />
+                <button type="submit" id="searchButton">
+                  <img src="./assets/search.png" alt="search-icon" />
+                </button>
+              </form>
             </li>
             <li><a href="index.html">Latest News</a></li>
             <li><a href="finance.html">Finance News</a></li>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roka News</title>
+    <link rel="stylesheet" href="css/search.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.0.6/fetch-jsonp.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/scripts.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const search = urlParams.get("q");
+        const page = urlParams.get("page");
+        document.title = `Search: ${search} | Roka News`;
+        const searchData = await getSearch(search, page ? page : 1);
+        console.log(searchData.pages);
+        console.log(searchData.news);
+        createPagination(searchData.pages, page ? parseInt(page) : 1, search);
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="navigation_container">
+        <div class="today_container">
+          <img src="./assets/globe.png" alt="globe" />
+          <p class="today">Tuesday, October 31, 2023</p>
+        </div>
+        <h1 class="title"><a href="index.html">R<span>o</span>ka News</a></h1>
+        <nav>
+          <ul>
+            <li class="search_bar">
+              <form action="/search.html" id="searchForm" method="get">
+                <input type="text" id="searchInput" name="q" required />
+                <button type="submit" id="searchButton">
+                  <img src="./assets/search.png" alt="search-icon" />
+                </button>
+              </form>
+            </li>
+            <li><a href="index.html">Latest News</a></li>
+            <li><a href="finance.html">Finance News</a></li>
+            <li><a href="signin.html">Log In</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <a class="back_top" href="#">
+        <p>Back to top</p>
+        <svg
+          width="30"
+          height="30"
+          viewBox="0 0 30 30"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="15" cy="15" r="15" fill="#FF5C00" />
+          <path
+            d="M21.3 17.7L15 11.4L8.7 17.7"
+            stroke="white"
+            stroke-linejoin="bevel"
+          />
+        </svg>
+      </a>
+      <div class="search_results"></div>
+      <div class="pagination"></div>
+    </main>
+    <footer>
+      <div>
+        <a href="mailto:olti@roka.dev" target="_blank">Contact Us</a>
+        <p>&copy; 2023 Roka News</p>
+      </div>
+    </footer>
+  </body>
+</html>

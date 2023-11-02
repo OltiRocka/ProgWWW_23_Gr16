@@ -111,9 +111,10 @@ footer div a {
 
 /* Main */
 main {
-  width: 60%;
+  width: 80%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .back_top {
   position: fixed;
@@ -127,35 +128,31 @@ main {
   font-weight: 600;
 }
 
-#newsDetail {
-  width: 100%;
+.pagination {
   display: flex;
-  flex-direction: column;
-  align-items: left;
-  padding: 30px 0 80px 0;
+  gap: 20px;
+  padding: 30px;
+  align-items: center;
 }
-#newsDetail h1 {
-  font-family: "Publico Headline Web Exbold Regular";
-  font-size: 36px;
-}
-#newsDetail figure {
-  align-items: left;
-}
-#newsDetail figure > img {
-  width: 90%;
-}
-#newsDetail figure > video {
-  width: 90%;
-}
-#newsDetail figure > figcaption {
-  width: 90%;
-  font-size: 14px;
-  color: rgba(8, 8, 8, 0.5);
-}
-#newsDetail p {
+.pagination a {
+  text-decoration: none;
+  color: grey;
+  padding: 4px 8px;
   font-size: 20px;
 }
-#newsDetail em {
-  font-size: 14px;
-  color: rgba(8, 8, 8, 0.5);
+a.active {
+  color: black;
+  border-bottom: 3px #ff5c00 solid;
+}
+a.prev_back {
+  border: 1px grey solid;
+  padding: 8px 10px;
+  border-radius: 12px;
+  margin: 0 20px;
+}
+a.disabled {
+  pointer-events: none;
+  color: #ddd;
+  border: 1px #ddd solid;
+  cursor: default;
 }
