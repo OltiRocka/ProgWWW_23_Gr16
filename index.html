@@ -26,8 +26,12 @@
         ];
 
         for (const category of categories) {
-          const categoryData = await getCategoryNews(category);
-
+          let categoryData;
+          if (category === "videos") {
+            categoryData = await getVideos();
+          } else {
+            categoryData = await getCategoryNews(category);
+          }
           const section = document.createElement("section");
           section.id = category;
           const h3 = document.createElement("h3");
@@ -40,6 +44,13 @@
           for (let i = 0; i < Math.min(4, categoryData.length); i++) {
             const article = categoryData[i];
             const a = document.createElement("a");
+
+            if (article.url.includes("videos/")) {
+              const videoTag = document.createElement("b");
+              videoTag.innerText = "VIDEO";
+              a.append(videoTag);
+            }
+
             a.href = `news.html?id=${article.url}&desc=${article.description}&image=${article.image}&title=${article.title}`;
             a.style.textDecoration = "none";
             a.style.color = "inherit";
@@ -119,6 +130,7 @@
           <li><a href="#style">Style</a></li>
           <li><a href="#travel">Travel</a></li>
           <li><a href="#sports">Sports</a></li>
+          <li><a href="#videos">Videos</a></li>
         </ul>
       </div>
       <div class="main_content">

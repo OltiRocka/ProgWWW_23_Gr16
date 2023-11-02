@@ -131,6 +131,7 @@ main {
 }
 .news_container {
   display: flex;
+  width: fit-content;
   flex-wrap: wrap;
   gap: 50px;
   border-bottom: 5px #ddd double;
@@ -142,16 +143,20 @@ main {
 .news_container a,
 .news_container a:visited {
   color: #292219;
+  position: relative;
+  width: 45%;
   text-decoration: none;
 }
 
-.news_container {
-  width: fit-content;
+.news_container a b {
+  background-color: #ff5c00;
+  padding: 4px 8px;
+  color: white;
+  border-radius: 12px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
-.news_container a {
-  width: 45%;
-}
-
 .news_container img {
   width: 100%;
   object-fit: cover;

@@ -95,6 +95,49 @@ function playSelectedStation() {
     radioLogo.style.display = "none";
   }
 }
+
+function getVideos() {
+  const base_url = "https://edition.cnn.com";
+  const url = `${base_url}/videos`;
+  return fetch(url)
+    .then((response) => response.text())
+    .then((html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      const newsData = [];
+      const section = doc.querySelector("#featured");
+      console.log(section);
+      const cardElements = section.querySelectorAll(".cn__column ");
+      cardElements.forEach((card) => {
+        const headlineElement = card.querySelector("h3");
+        const imgElement = card.querySelector("img");
+        const aElement = card.querySelector("a");
+
+        if (headlineElement && imgElement) {
+          const id = Date.now() + Math.random();
+          const title = headlineElement.textContent.trim();
+          const description = "";
+          const image = imgElement.getAttribute("data-src-large");
+          const articleURL = base_url + aElement.getAttribute("href");
+          newsData.push({
+            id,
+            title,
+            description,
+            image,
+            url: articleURL,
+          });
+        }
+      });
+
+      return newsData;
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
+}
+
 function getCategoryNews(category) {
   const base_url = "https://edition.cnn.com";
   const url = `${base_url}/${category}`;
