@@ -11,9 +11,6 @@
         // Get the news data dynamically
         const mainNews = document.querySelector(".main_news");
 
-        const apiUrl =
-          "http://olti-news.eu-central-1.elasticbeanstalk.com/category/";
-
         const categories = [
           "us",
           "world",
@@ -27,22 +24,8 @@
           "sports",
         ];
 
-        async function fetchCategoryData(category) {
-          try {
-            const response = await fetch(apiUrl + category);
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            const categoryData = await response.json();
-            return categoryData;
-          } catch (error) {
-            console.error("Error fetching category data:", error);
-            return [];
-          }
-        }
-
         for (const category of categories) {
-          const categoryData = await fetchCategoryData(category);
+          const categoryData = await getCategoryNews(category);
 
           const section = document.createElement("section");
           section.id = category;
@@ -142,6 +125,7 @@
         <div class="finance_data">
           <div class="radio_container">
             <div class="radios">
+              <h3 align="left" style="padding-left: 5px">Live Radio</h3>
               <select id="radio-select" onchange="playSelectedStation()">
                 <option value="">Select a radio station</option>
                 <option

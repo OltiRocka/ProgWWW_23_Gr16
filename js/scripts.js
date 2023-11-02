@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   var tablesAppended = false;
-
+  getCategoryNews("us");
   // Scroll to Section
   var links = document.querySelectorAll('a[href^="#"]');
 
@@ -83,19 +83,57 @@ function playSelectedStation() {
   const selectedOption = radioSelect.options[radioSelect.selectedIndex];
   const selectedValue = selectedOption.value;
   const selectedDataImg = selectedOption.getAttribute("data-img");
-  console.log(selectedDataImg);
   if (selectedValue) {
     radioPlayer.src = selectedValue;
     radioPlayer.load();
     radioPlayer.play();
 
-    // Set the radio logo based on the data-img attribute
     radioLogo.src = selectedDataImg;
-    radioLogo.style.display = "block"; // Show the logo
+    radioLogo.style.display = "block";
   } else {
-    // Clear the audio source and hide the logo if no station is selected
     radioPlayer.src = "";
     radioPlayer.pause();
-    radioLogo.style.display = "none"; // Hide the logo
+    radioLogo.style.display = "none";
   }
+}
+function getCategoryNews(category) {
+  const base_url = "https://edition.cnn.com/";
+  const url = `${base_url}${category}`;
+
+  return fetch(url)
+    .then((response) => response.text())
+    .then((html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      const newsData = [];
+
+      const cardElements = doc.querySelectorAll(".card");
+      cardElements.forEach((card) => {
+        const headlineElement = card.querySelector(".container__headline-text");
+        const imgElement = card.querySelector("img");
+        if (headlineElement && imgElement) {
+          const id = Date.now() + Math.random();
+          const title = headlineElement.textContent.trim();
+          const description = imgElement.getAttribute("alt");
+          const image = imgElement.getAttribute("src");
+          const articleURL =
+            base_url + headlineElement.parentNode.getAttribute("href");
+
+          newsData.push({
+            id,
+            title,
+            description,
+            image,
+            url: articleURL,
+          });
+        }
+      });
+
+      return newsData;
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
 }

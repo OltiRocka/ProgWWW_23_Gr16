@@ -165,14 +165,14 @@ main {
 
 .finance_data {
   display: flex;
-  padding: 100px 0 0 0;
+  padding: 116px 0 0 0;
   flex-direction: column;
   align-items: center;
   gap: 20px;
 } /* Style for the radio container */
 .radio_container {
   text-align: center;
-  padding: 20px;
+  padding: 10px 20px 20px;
   background-color: #f2f2f2;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -213,7 +213,7 @@ main {
 /* Style for the selected radio station */
 #radio-select option:checked {
   font-weight: bold;
-  background-color: #ffe7a0;
+  background-color: #eee;
   color: #333;
 }
 .player {
@@ -222,6 +222,7 @@ main {
   align-items: center;
 }
 .player img {
+  display: none;
   width: 50px;
   border-radius: 20px;
 }
