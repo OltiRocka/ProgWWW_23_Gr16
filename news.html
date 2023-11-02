@@ -6,7 +6,6 @@
     <title>Roka News</title>
     <link rel="stylesheet" href="css/news.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Include your scripts.js file first -->
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
         const urlParams = new URLSearchParams(window.location.search);
@@ -15,9 +14,12 @@
         const desc = urlParams.get("desc");
         const image = urlParams.get("image");
         document.title = title + " | Roka News";
-        console.log(articleId);
         const articleData = await getArticleContent(articleId);
-        console.log(articleData);
+        console.log(
+          articleData.content,
+          articleData.timestamp,
+          articleData.vidUrl
+        );
         const container = document.getElementById("newsDetail");
 
         const articleTitle = document.createElement("h1");
