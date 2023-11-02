@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
   var tablesAppended = false;
-  getCategoryNews("us");
   // Scroll to Section
   var links = document.querySelectorAll('a[href^="#"]');
 
