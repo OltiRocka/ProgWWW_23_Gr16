@@ -8,6 +8,37 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
+        var tablesAppended = false;
+        // Scroll to Section
+        var links = document.querySelectorAll('a[href^="#"]');
+
+        for (var i = 0; i < links.length; i++) {
+          links[i].addEventListener("click", function (e) {
+            e.preventDefault();
+
+            var targetID = this.getAttribute("href");
+            var target = document.querySelector(targetID);
+
+            if (targetID === "#") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
+          });
+          fetch("./assets/stocks.json")
+            .then((response) => response.json())
+            .then((data) => {
+              if (!tablesAppended) {
+                const symbols = Object.keys(data);
+                symbols.forEach((symbol) => {
+                  const tableData = data[symbol].slice(0, 6);
+                  appendDataToDOM(symbol, tableData);
+                });
+                tablesAppended = true;
+              }
+            });
+        }
+        addRadioStations();
         // Get the news data dynamically
         const mainNews = document.querySelector(".main_news");
 
@@ -76,36 +107,6 @@
           section.appendChild(newsContainer);
           mainNews.appendChild(section);
         }
-        var tablesAppended = false;
-        // Scroll to Section
-        var links = document.querySelectorAll('a[href^="#"]');
-
-        for (var i = 0; i < links.length; i++) {
-          links[i].addEventListener("click", function (e) {
-            e.preventDefault();
-
-            var targetID = this.getAttribute("href");
-            var target = document.querySelector(targetID);
-
-            if (targetID === "#") {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            } else if (target) {
-              target.scrollIntoView({ behavior: "smooth" });
-            }
-          });
-          fetch("./assets/stocks.json")
-            .then((response) => response.json())
-            .then((data) => {
-              if (!tablesAppended) {
-                const symbols = Object.keys(data);
-                symbols.forEach((symbol) => {
-                  const tableData = data[symbol].slice(0, 6);
-                  appendDataToDOM(symbol, tableData);
-                });
-                tablesAppended = true;
-              }
-            });
-        }
       });
     </script>
   </head>
@@ -128,7 +129,7 @@
               </form>
             </li>
             <li><a href="index.html">Latest News</a></li>
-            <li><a href="finance.html">Finance News</a></li>
+            <li><a href="livetv.html">Live TV</a></li>
             <li><a href="signin.html">Log In</a></li>
           </ul>
         </nav>
@@ -175,24 +176,6 @@
               <h3 align="left" style="padding-left: 5px">Live Radio</h3>
               <select id="radio-select" onchange="playSelectedStation()">
                 <option value="">Select a radio station</option>
-                <option
-                  value="https://s2.voscast.com:8825/radiodukagjini"
-                  data-img="https://www.dukagjini.com/wp-content/uploads/2022/06/RadioDukagjini.jpg"
-                >
-                  Radio Dukagjini
-                </option>
-                <option
-                  value="https://s1.voscast.com:11605/shqipradio"
-                  data-img="https://www.dukagjini.com/wp-content/uploads/2022/06/RadioShqip.jpg"
-                >
-                  Shqip Radio
-                </option>
-                <option
-                  value="https://s1.voscast.com:11607/loveradio"
-                  data-img="https://www.dukagjini.com/wp-content/uploads/2022/06/RadioLove.jpg"
-                >
-                  Love Radio
-                </option>
               </select>
             </div>
             <div class="player">

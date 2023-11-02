@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
-
-  // Create stock Tables
 });
 
 function appendDataToDOM(symbol, tableData) {
@@ -64,7 +62,32 @@ function playSelectedStation() {
     radioLogo.style.display = "none";
   }
 }
+function addRadioStations() {
+  var radioStations = {
+    "Radio Dukagjini": {
+      url: "https://s2.voscast.com:8825/radiodukagjini",
+      img: "https://www.dukagjini.com/wp-content/uploads/2022/06/RadioDukagjini.jpg",
+    },
+    "Shqip Radio": {
+      url: "https://s1.voscast.com:11605/shqipradio",
+      img: "https://www.dukagjini.com/wp-content/uploads/2022/06/RadioShqip.jpg",
+    },
+    "Love Radio": {
+      url: "https://s1.voscast.com:11607/loveradio",
+      img: "https://www.dukagjini.com/wp-content/uploads/2022/06/RadioLove.jpg",
+    },
+  };
 
+  var selectElement = document.getElementById("radio-select");
+
+  for (var name in radioStations) {
+    var optionElement = document.createElement("option");
+    optionElement.value = radioStations[name].url;
+    optionElement.dataset.img = radioStations[name].img;
+    optionElement.textContent = name;
+    selectElement.appendChild(optionElement);
+  }
+}
 function getVideos() {
   const base_url = "https://edition.cnn.com";
   const url = `${base_url}/videos`;
