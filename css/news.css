@@ -136,7 +136,9 @@ main {
 #newsDetail figure > img {
   width: 90%;
 }
-
+#newsDetail figure > video {
+  width: 90%;
+}
 #newsDetail figure > figcaption {
   width: 90%;
   font-size: 14px;

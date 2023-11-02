@@ -15,23 +15,27 @@
         const image = urlParams.get("image");
         document.title = title + " | Roka News";
         const articleData = await getArticleContent(articleId);
-        console.log(
-          articleData.content,
-          articleData.timestamp,
-          articleData.vidUrl
-        );
+
         const container = document.getElementById("newsDetail");
 
         const articleTitle = document.createElement("h1");
         articleTitle.innerText = title;
 
         const articleFigure = document.createElement("figure");
-        const articleImage = document.createElement("img");
+        if (articleData.vidUrl !== "") {
+          const articleVideo = document.createElement("video");
+          articleVideo.src = articleData.vidUrl;
+          articleVideo.controls = true;
+          articleVideo.poster = image;
+          articleFigure.appendChild(articleVideo);
+        } else {
+          const articleImage = document.createElement("img");
+          articleImage.src = image;
+          articleFigure.appendChild(articleImage);
+        }
         const articleFigCaption = document.createElement("figcaption");
-        articleImage.src = image;
         articleFigCaption.innerText = desc;
 
-        articleFigure.append(articleImage);
         articleFigure.append(articleFigCaption);
 
         const articleTime = document.createElement("em");
