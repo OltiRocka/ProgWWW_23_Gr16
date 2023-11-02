@@ -214,10 +214,47 @@ async function getSearch(search, page) {
     return null;
   }
 }
+
+function createSearchNews(results) {
+  const searchContainer = document.querySelector(".search_results");
+  results.forEach((result) => {
+    const resultContainer = document.createElement("a");
+    const imageContainer = document.createElement("img");
+    const textContainer = document.createElement("div");
+    const header = document.createElement("h2");
+    const timestamp = document.createElement("em");
+    const description = document.createElement("p");
+
+    resultContainer.href = `news.html?id=${result["url"].replace(
+      "www",
+      "edition"
+    )}&desc=${result["body"]}&image=${result["thumbnail"]}&title=${
+      result["headline"]
+    }`;
+    resultContainer.classList.add("search_item");
+    textContainer.classList.add("search_info");
+
+    imageContainer.src = result["thumbnail"];
+    header.innerText = result["headline"];
+    timestamp.innerText = result["lastModifiedDate"];
+    description.innerText = result["body"];
+
+    textContainer.appendChild(header);
+    textContainer.appendChild(timestamp);
+    textContainer.appendChild(description);
+
+    resultContainer.appendChild(imageContainer);
+    resultContainer.appendChild(textContainer);
+
+    searchContainer.appendChild(resultContainer);
+  });
+}
+
 function createPagination(totalPages, currentPage, search) {
   const paginationContainer = document.querySelector(".pagination");
 
   paginationContainer.innerHTML = "";
+
   const prevLink = document.createElement("a");
   prevLink.href = `?q=${search}&page=${currentPage - 1}`;
   prevLink.textContent = "Previous";
@@ -227,10 +264,22 @@ function createPagination(totalPages, currentPage, search) {
     prevLink.classList.add("disabled");
     prevLink.addEventListener("click", (e) => e.preventDefault());
   }
-
   paginationContainer.appendChild(prevLink);
 
-  for (let i = 1; i <= totalPages; i++) {
+  let startPage = 1;
+  let endPage = totalPages > 10 ? 10 : totalPages;
+
+  if (currentPage > 5 && totalPages > 10) {
+    startPage = currentPage - 4;
+    endPage = currentPage + 5;
+
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = totalPages - 9;
+    }
+  }
+
+  for (let i = startPage; i <= endPage; i++) {
     const pageLink = document.createElement("a");
     pageLink.href = `?q=${search}&page=${i}`;
     pageLink.textContent = i;
@@ -239,13 +288,14 @@ function createPagination(totalPages, currentPage, search) {
     }
     paginationContainer.appendChild(pageLink);
   }
+
   const nextLink = document.createElement("a");
   nextLink.href = `?q=${search}&page=${currentPage + 1}`;
   nextLink.textContent = "Next";
   nextLink.classList.add("prev_back");
   if (currentPage == totalPages) {
-    prevLink.classList.add("disabled");
-    prevLink.addEventListener("click", (e) => e.preventDefault());
+    nextLink.classList.add("disabled");
+    nextLink.addEventListener("click", (e) => e.preventDefault());
   }
   paginationContainer.appendChild(nextLink);
 }

@@ -156,3 +156,38 @@ a.disabled {
   border: 1px #ddd solid;
   cursor: default;
 }
+
+.info {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+.search_results {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  gap: 60px;
+}
+.search_results a {
+  display: flex;
+  text-decoration: none;
+  gap: 50px;
+  padding: 20px;
+  border-bottom: 2px #ddd solid;
+}
+.search_results a img {
+  width: 30%;
+}
+
+.search_results a h2 {
+  color: #1d1d1d;
+  font-family: "Publico Headline Web Exbold Regular";
+}
+.search_results a p {
+  color: #1d1d1d;
+}
+.search_results a em {
+  color: #ccc;
+  font-size: 12px;
+}

@@ -16,9 +16,8 @@
         const page = urlParams.get("page");
         document.title = `Search: ${search} | Roka News`;
         const searchData = await getSearch(search, page ? page : 1);
-        console.log(searchData.pages);
-        console.log(searchData.news);
         createPagination(searchData.pages, page ? parseInt(page) : 1, search);
+        createSearchNews(searchData.news);
       });
     </script>
   </head>
@@ -65,6 +64,12 @@
           />
         </svg>
       </a>
+      <div class="info">
+        <p></p>
+        <div class="sort">
+          <p>Sorting By</p>
+        </div>
+      </div>
       <div class="search_results"></div>
       <div class="pagination"></div>
     </main>
