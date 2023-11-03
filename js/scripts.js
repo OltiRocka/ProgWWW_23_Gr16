@@ -365,6 +365,18 @@ function getChannelData(channel) {
       img: "https://ub1doy938d.gjirafa.net/media/yzg0yt/thumbnails/standart.jpg",
     },
     {
+      name:'Big Brother VIP 1',
+      abbr:'Big Brother',
+      url:'https://biguon.xyz/hls/bb1/index.m3u8',
+      img:'https://media.anabelmagazine.com/o.anabel.al/media3/-785-0-637be0bbd8b8e.jpg'
+    },
+    {
+      name:'Big Brother VIP 2',
+      abbr:'Big Brother',
+      url:'https://biguon.xyz/hls/bb2/index.m3u8',
+      img:'https://media.anabelmagazine.com/o.anabel.al/media3/-785-0-637be0bbd8b8e.jpg'
+    },
+    {
       name: "SYRI VISION",
       abbr: "TV SYRI VISION",
       url: "https://video.gjirafa.com/embed/syrivision?autoplay=true",

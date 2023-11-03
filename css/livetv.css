@@ -280,6 +280,9 @@ main {
   text-decoration: none;
   color: black;
 }
+#all-video img{
+  width:350px;
+}
 #all-videos a abbr {
   font-size: 24px;
 }
