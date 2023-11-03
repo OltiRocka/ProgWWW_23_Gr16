@@ -107,6 +107,11 @@
           section.appendChild(newsContainer);
           mainNews.appendChild(section);
         }
+        document.getElementById("loading-screen").style.display = "none";
+
+        // Show the main content
+        document.getElementById("main-content").style.display = "block";
+        document.getElementById("footer-content").style.display = "block";
       });
     </script>
   </head>
@@ -140,7 +145,24 @@
         </nav>
       </div>
     </header>
-    <main>
+    <div class="section_container">
+      <ul>
+        <li><a href="#us">US</a></li>
+        <li><a href="#world">World</a></li>
+        <li><a href="#politics">Politics</a></li>
+        <li><a href="#business">Business</a></li>
+        <li><a href="#opinions">Opinions</a></li>
+        <li><a href="#health">Health</a></li>
+        <li><a href="#entertainment">Entertainment</a></li>
+        <li><a href="#style">Style</a></li>
+        <li><a href="#travel">Travel</a></li>
+        <li><a href="#sports">Sports</a></li>
+        <li><a href="#videos">Videos</a></li>
+      </ul>
+    </div>
+    <div id="loading-screen"><span class="loader"></span></div>
+
+    <main id="main-content" style="display: none">
       <a class="back_top" href="#">
         <p>Back to top</p>
         <svg
@@ -158,21 +180,7 @@
           />
         </svg>
       </a>
-      <div class="section_container">
-        <ul>
-          <li><a href="#us">US</a></li>
-          <li><a href="#world">World</a></li>
-          <li><a href="#politics">Politics</a></li>
-          <li><a href="#business">Business</a></li>
-          <li><a href="#opinions">Opinions</a></li>
-          <li><a href="#health">Health</a></li>
-          <li><a href="#entertainment">Entertainment</a></li>
-          <li><a href="#style">Style</a></li>
-          <li><a href="#travel">Travel</a></li>
-          <li><a href="#sports">Sports</a></li>
-          <li><a href="#videos">Videos</a></li>
-        </ul>
-      </div>
+
       <div class="main_content">
         <div class="main_news"></div>
         <div class="finance_data">
@@ -193,7 +201,7 @@
         </div>
       </div>
     </main>
-    <footer>
+    <footer id="footer-content" style="display: none">
       <div>
         <a href="mailto:olti@roka.dev" target="_blank">Contact Us</a>
         <p>&copy; 2023 Roka News</p>

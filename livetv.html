@@ -4,8 +4,73 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roka News</title>
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/livetv.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const channel = urlParams.get("channel");
+        const channelData = getChannelData(channel);
+        const streamContainer = document.getElementById("main-video");
+
+        if (channel) {
+          const streamer = document.createElement("iframe");
+          streamer.id = "streamer";
+          const streamTitle = document.createElement("h2");
+          streamer.src = channelData.data.url;
+          streamTitle.innerText = channel;
+          streamContainer.appendChild(streamer);
+          streamContainer.appendChild(streamTitle);
+        } else {
+          const streamer = document.createElement("img");
+          streamer.src = "./assets/onhold.jpg";
+          streamContainer.appendChild(streamer);
+        }
+
+        const videosContainer = document.getElementById("all-videos");
+        channelData.channelList.slice(1).forEach((channel) => {
+          const videoLink = document.createElement("a");
+          const videoThumbnail = document.createElement("img");
+          const videoTitle = document.createElement("abbr");
+          videoThumbnail.src = channel.img;
+          videoTitle.innerText = channel.name;
+          videoTitle.title = channel.abbr;
+          videoLink.href = `/livetv.html?channel=${channel.name.replace(
+            " ",
+            "%20"
+          )}`;
+          videoLink.appendChild(videoThumbnail);
+          videoLink.appendChild(videoTitle);
+          videosContainer.appendChild(videoLink);
+        });
+        document.getElementById("loading-screen").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+        document.getElementById("footer-content").style.display = "block";
+
+        const scrollAmount = 800;
+        const leftArrow = document.getElementById("scroll-left");
+        const rightArrow = document.getElementById("scroll-right");
+
+        leftArrow.addEventListener("click", () => {
+          videosContainer.scrollBy({ left: -scrollAmount, top: 0 });
+        });
+
+        rightArrow.addEventListener("click", () => {
+          videosContainer.scrollBy({ left: scrollAmount, top: 0 });
+        });
+
+        const checkArrows = () => {
+          leftArrow.disabled = videosContainer.scrollLeft <= 0;
+          rightArrow.disabled =
+            videosContainer.scrollLeft + videosContainer.clientWidth >=
+            videosContainer.scrollWidth;
+        };
+
+        checkArrows();
+
+        videosContainer.addEventListener("scroll", checkArrows);
+      });
+    </script>
   </head>
   <body>
     <header>
@@ -38,15 +103,25 @@
         </nav>
       </div>
     </header>
-    <main>
-      <div class="main_video"></div>
-      <div class="all_videos"></div>
+    <div id="loading-screen"><span class="loader"></span></div>
+    <main id="main-content" style="display: none">
+      <div class="video_container">
+        <div id="main-video"></div>
+      </div>
+      <h1 style="padding-top: 60px">ALL CHANNELS</h1>
+      <div id="video-gallery">
+        <button id="scroll-left" aria-label="Scroll left" disabled>&lt;</button>
+        <div id="all-videos"></div>
+        <button id="scroll-right" aria-label="Scroll right">&gt;</button>
+      </div>
     </main>
-    <footer>
+
+    <footer id="footer-content" style="display: none">
       <div>
         <a href="mailto:olti@roka.dev" target="_blank">Contact Us</a>
         <p>&copy; 2023 Roka News</p>
       </div>
     </footer>
   </body>
+  <script src="js/scripts.js"></script>
 </html>

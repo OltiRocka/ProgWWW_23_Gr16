@@ -11,6 +11,7 @@ body {
   justify-content: center;
   background: white;
   width: 100%;
+  min-height: 100vh;
 }
 
 header {
@@ -145,7 +146,52 @@ nav ul li a {
   border: none;
   cursor: pointer;
 }
+/* Loader */
+#loading-screen {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #ff5c00;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, 50%);
+  border-radius: 50%;
+}
+.loader::before {
+  left: auto;
+  right: 0;
+  background: #000;
+  transform: translate(50%, 100%);
+}
 
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 /* footer */
 footer {
   background-color: #1d1d1d;

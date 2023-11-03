@@ -57,6 +57,12 @@
         container.appendChild(articleTime);
         container.appendChild(articleFigure);
         container.appendChild(paragraphContainer);
+
+        document.getElementById("loading-screen").style.display = "none";
+
+        // Show the main content
+        document.getElementById("main-content").style.display = "block";
+        document.getElementById("footer-content").style.display = "block";
       });
     </script>
   </head>
@@ -92,7 +98,9 @@
         </nav>
       </div>
     </header>
-    <main>
+    <div id="loading-screen"><span class="loader"></span></div>
+
+    <main id="main-content" style="display: none">
       <a class="back_top" href="#">
         <p>Back to top</p>
         <svg
@@ -112,7 +120,7 @@
       </a>
       <article id="newsDetail"></article>
     </main>
-    <footer>
+    <footer id="footer-content" style="display: none">
       <div>
         <a href="mailto:olti@roka.dev" target="_blank">Contact Us</a>
         <p>&copy; 2023 Roka News</p>

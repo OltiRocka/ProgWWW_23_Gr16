@@ -337,3 +337,106 @@ function changeSort(buttonElement) {
   urlParams.set("sort", currentSort);
   window.location.search = urlParams.toString();
 }
+function getChannelData(channel) {
+  const channelList = [
+    { name: "", url: "./assets/onhold.jpg", img: "" },
+    {
+      name: "RTK 1",
+      abbr: "RTK",
+      url: "https://video.gjirafa.com/embed/rtk1?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zykxzq/thumbnails/standart.jpg",
+    },
+    {
+      name: "RTV 21",
+      abbr: "RTV 21",
+      url: "https://video.gjirafa.com/embed/rtv-21-live?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zy1zzz/thumbnails/standart.jpg",
+    },
+    {
+      name: "KTV",
+      abbr: "KOHA Net",
+      url: "https://video.gjirafa.com/embed/ktv-live?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zxzk11/thumbnails/standart.jpg",
+    },
+    {
+      name: "T7",
+      abbr: "T7",
+      url: "https://video.gjirafa.com/embed/t7-live?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/yzg0yt/thumbnails/standart.jpg",
+    },
+    {
+      name: "SYRI VISION",
+      abbr: "TV SYRI VISION",
+      url: "https://video.gjirafa.com/embed/syrivision?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/y10z1k/thumbnails/standart.jpg",
+    },
+    {
+      name: "RTK 2",
+      abbr: "RTK",
+      url: "https://video.gjirafa.com/embed/rtk2?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zykxz0/thumbnails/standart.jpg",
+    },
+    {
+      name: "ATV LIVE",
+      abbr: "ATV",
+      url: "https://video.gjirafa.com/embed/atv-live-tv?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zyq001/thumbnails/standart.jpg",
+    },
+    {
+      name: "RTK 3",
+      abbr: "RTK",
+      url: "https://video.gjirafa.com/embed/rtk3?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zykxzk/thumbnails/standart.jpg",
+    },
+    {
+      name: "RTK 4",
+      abbr: "RTK",
+      url: "https://video.gjirafa.com/embed/rtk4?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zykxgt/thumbnails/standart.jpg",
+    },
+    {
+      name: "A2 CNN",
+      abbr: "A2 CNN",
+      url: "https://video.gjirafa.com/embed/a2-cnn-live?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/y11g0y/thumbnails/standart.jpg",
+    },
+    {
+      name: "ZICO TV",
+      abbr: "ZICO TV",
+      url: "https://video.gjirafa.com/embed/zico-tv-live?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/y1k0kk/thumbnails/standart.jpg",
+    },
+    {
+      name: "PRO1",
+      abbr: "PRO1",
+      url: "https://video.gjirafa.com/embed/pro1-tv-2?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zzgyqg/thumbnails/standart.jpg",
+    },
+    {
+      name: "Arta News",
+      abbr: "KOHA Net",
+      url: "https://video.gjirafa.com/embed/arta-news?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/yt1q1x/thumbnails/standart.jpg",
+    },
+    {
+      name: "RTV Besa",
+      abbr: "RTV Besa",
+      url: "https://video.gjirafa.com/embed/rtv-besa-live-2?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zztyzt/thumbnails/standart.jpg",
+    },
+    {
+      name: "TV News",
+      abbr: "TV News",
+      url: "https://video.gjirafa.com/embed/tv-news-live?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zzy1kt/thumbnails/standart.jpg",
+    },
+    {
+      name: "TV Teuta",
+      abbr: "TV Teuta",
+      url: "https://video.gjirafa.com/embed/tv-teuta-live?autoplay=true",
+      img: "https://ub1doy938d.gjirafa.net/media/zty1gq/thumbnails/standart.jpg",
+    },
+  ];
+  const data = channelList.filter((i) => i.name === channel)[0];
+  return { data, channelList };
+}

@@ -35,6 +35,12 @@
         count.innerHTML = "";
         count.innerText = ` Showing ${searchData.meta["start"]} - ${searchData.meta["end"]} out of ${searchData.meta["of"]} for `;
         count.appendChild(boldElement);
+
+        document.getElementById("loading-screen").style.display = "none";
+
+        // Show the main content
+        document.getElementById("main-content").style.display = "block";
+        document.getElementById("footer-content").style.display = "block";
       });
     </script>
   </head>
@@ -69,7 +75,9 @@
         </nav>
       </div>
     </header>
-    <main>
+    <div id="loading-screen"><span class="loader"></span></div>
+
+    <main id="main-content" style="display: none">
       <a class="back_top" href="#">
         <p>Back to top</p>
         <svg
