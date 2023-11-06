@@ -476,3 +476,57 @@ async function getChannelData(channel) {
   const data = channelList.filter((i) => i.name === channel)[0];
   return { data, channelList };
 }
+
+function getFormattedDate() {
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date().toLocaleDateString("en-US", options);
+}
+
+function updateLocationText(city, country) {
+  document.getElementById(
+    "today"
+  ).innerText = `${getFormattedDate()} - ${city}, ${country}`;
+}
+
+async function getLocation() {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          const city =
+            data.address.city ||
+            data.address.village ||
+            data.address.town ||
+            "Unknown city";
+          const country = data.address.country || "Unknown country";
+
+          updateLocationText(city, country);
+        } catch (error) {
+          console.error("Geocoding error:", error);
+          updateLocationText("Location not available", "");
+        }
+      },
+      (error) => {
+        console.warn(`ERROR(${error.code}): ${error.message}`);
+        updateLocationText("Location permission denied", "");
+      }
+    );
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+    updateLocationText("Geolocation not supported", "");
+  }
+}

@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
+        getLocation();
         var tablesAppended = false;
         // Scroll to Section
         var links = document.querySelectorAll('a[href^="#"]');
@@ -120,7 +121,7 @@
       <div class="navigation_container">
         <div class="today_container">
           <img src="./assets/globe.png" alt="globe" />
-          <p class="today">Tuesday, October 31, 2023</p>
+          <p id="today"></p>
         </div>
         <h1 class="title"><a href="index.html">R<span>o</span>ka News</a></h1>
         <nav>
