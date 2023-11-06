@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roka News</title>
-    <link rel="stylesheet" href="css/livetv.css" />    
+    <link rel="stylesheet" href="css/livetv.css" />
     <link href="https://vjs.zencdn.net/7.7.6/video-js.css" rel="stylesheet" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -12,31 +12,21 @@
       document.addEventListener("DOMContentLoaded", async function () {
         const urlParams = new URLSearchParams(window.location.search);
         const channel = urlParams.get("channel");
-        const channelData = getChannelData(channel);
+        const channelData = await getChannelData(channel);
         const streamContainer = document.getElementById("main-video");
-        if(channel){
-          if (channel.includes("Big Brother VIP")){
-            const streamer = document.getElementById('streamer-source');
-            const streamTitle = document.createElement("h2");
-            streamer.src = channelData.data.url;
-            streamTitle.innerText = channel;
-            streamContainer.appendChild(streamer);
-            streamContainer.appendChild(streamTitle);
-          }
-          else {
-            streamContainer.innerHTML="";
-            const streamer = document.createElement("iframe");
-            streamer.id = "streamer";
-            const streamTitle = document.createElement("h2");
-            streamer.src = channelData.data.url;
-            streamTitle.innerText = channel;
-            streamContainer.appendChild(streamer);
-            streamContainer.appendChild(streamTitle);
-          }
+        if (channel) {
+          streamContainer.innerHTML = "";
+          const streamer = document.createElement("iframe");
+          streamer.id = "streamer";
+          const streamTitle = document.createElement("h2");
+          streamer.src = channelData.data.url;
+          streamTitle.innerText = channel;
+          streamContainer.appendChild(streamer);
+          streamContainer.appendChild(streamTitle);
         } else {
           streamContainer.innerHTML = "";
           const streamer = document.createElement("img");
-          streamer.id = 'streamer';
+          streamer.id = "streamer";
           streamer.src = "./assets/onhold.jpg";
           streamContainer.appendChild(streamer);
         }
@@ -121,11 +111,7 @@
     <div id="loading-screen"><span class="loader"></span></div>
     <main id="main-content" style="display: none">
       <div class="video_container">
-        <div id="main-video">
-          <video-js id="streamer" class="vjs-default-skin" controls preload="auto" fluid>
-            <source id="streamer-source" src="https://biguon.xyz/hls/bb1/index.m3u8" type="application/x-mpegURL">
-        </video-js>
-        </div>
+        <div id="main-video"></div>
       </div>
       <h1 style="padding-top: 60px">ALL CHANNELS</h1>
       <div id="video-gallery">
@@ -144,8 +130,6 @@
   </body>
   <script src="js/scripts.js"></script>
   <script src="https://unpkg.com/video.js/dist/video.js"></script>
-  <script src = "https://unpkg.com/browse/@videojs/http-streaming@1.13.3/dist/videojs-http-streaming.min.js"></script>
-  <script>
-   var player = videojs('streamer');
-  </script>
+  <script src="https://unpkg.com/browse/@videojs/http-streaming@1.13.3/dist/videojs-http-streaming.min.js"></script>
+  <script></script>
 </html>
