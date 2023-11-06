@@ -19,6 +19,8 @@
           streamContainer.innerHTML = "";
           const streamer = document.createElement("iframe");
           streamer.id = "streamer";
+          streamer.frameBorder = "0";
+          streamer.setAttribute("allow", "fullscreen");
           const streamTitle = document.createElement("h2");
           streamer.src = channelData.data.url;
           streamTitle.innerText = channel;
