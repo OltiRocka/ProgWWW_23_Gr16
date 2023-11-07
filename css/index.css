@@ -496,6 +496,15 @@ footer div a {
     padding: 0;
   }
 
+  .finance_data table {
+    width: 80vw !important;
+    box-sizing: border-box;
+  }
+  .finance_data th,
+  .finance_data td {
+    padding: 5px 10px;
+    box-sizing: border-box; /* Adjust the padding as needed */
+  }
   footer div {
     padding: 0 50px;
   }
