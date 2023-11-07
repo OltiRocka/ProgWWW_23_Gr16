@@ -55,7 +55,13 @@
         <h1 class="title"><a href="index.html">R<span>o</span>ka News</a></h1>
         <nav>
           <ul>
-            <li class="search_bar">
+            <img
+              src="./assets/search.png"
+              alt="phone-search"
+              id="phone-search"
+              onclick="searchOnPhone()"
+            />
+            <li id="search_bar">
               <form action="/search.html" id="searchForm" method="get">
                 <input type="text" id="searchInput" name="q" required />
                 <button type="submit" id="searchButton">
@@ -110,7 +116,7 @@
       <div class="search_results"></div>
       <div class="pagination"></div>
     </main>
-    <footer>
+    <footer id="footer-content">
       <div>
         <a href="mailto:olti@roka.dev" target="_blank">Contact Us</a>
         <p>&copy; 2023 Roka News</p>

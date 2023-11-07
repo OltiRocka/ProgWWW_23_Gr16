@@ -90,7 +90,13 @@
         <h1 class="title"><a href="index.html">R<span>o</span>ka News</a></h1>
         <nav>
           <ul>
-            <li class="search_bar">
+            <img
+              src="./assets/search.png"
+              alt="phone-search"
+              id="phone-search"
+              onclick="searchOnPhone()"
+            />
+            <li id="search_bar">
               <form action="/search.html" id="searchForm" method="get">
                 <input type="text" id="searchInput" name="q" required />
                 <button type="submit" id="searchButton">

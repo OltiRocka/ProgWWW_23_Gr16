@@ -99,7 +99,6 @@ function getVideos() {
 
       const newsData = [];
       const section = doc.querySelector("#featured");
-      console.log(section);
       const cardElements = section.querySelectorAll(".cn__column ");
       cardElements.forEach((card) => {
         const headlineElement = card.querySelector("h3");
@@ -283,7 +282,12 @@ function createSearchNews(results) {
 
 function createPagination(totalPages, currentPage, search) {
   const paginationContainer = document.querySelector(".pagination");
-
+  let max_pag;
+  if (window.innerWidth <= 600) {
+    max_pag = 3;
+  } else {
+    max_pag = 10;
+  }
   paginationContainer.innerHTML = "";
 
   const prevLink = document.createElement("a");
@@ -298,9 +302,9 @@ function createPagination(totalPages, currentPage, search) {
   paginationContainer.appendChild(prevLink);
 
   let startPage = 1;
-  let endPage = totalPages > 10 ? 10 : totalPages;
+  let endPage = totalPages > max_pag ? max_pag : totalPages;
 
-  if (currentPage > 5 && totalPages > 10) {
+  if (currentPage > 5 && totalPages > max_pag) {
     startPage = currentPage - 4;
     endPage = currentPage + 5;
 
@@ -526,7 +530,26 @@ async function getLocation() {
       }
     );
   } else {
-    console.log("Geolocation is not supported by this browser.");
     updateLocationText("Geolocation not supported", "");
+  }
+}
+function searchOnPhone() {
+  const form = document.getElementById("searchForm");
+  const header = document.getElementsByTagName("header")[0];
+  const bar = document.getElementById("search_bar");
+  const currentMaxHeight = window.getComputedStyle(bar).maxHeight;
+
+  if (currentMaxHeight === "0px" || currentMaxHeight === "") {
+    bar.style.maxHeight = "500px";
+    form.style.maxHeight = "500px";
+    header.style.paddingBottom = "60px";
+    setTimeout(() => {
+      form.style.opacity = "1";
+    }, 10);
+  } else {
+    bar.style.maxHeight = "0";
+    form.style.maxHeight = "0";
+    header.style.paddingBottom = "10px";
+    form.style.opacity = "0";
   }
 }

@@ -127,19 +127,19 @@ nav ul li a {
   }
 }
 
-.search_bar {
+#search_bar {
   border: 1px rgb(0, 0, 0, 0.2) solid;
   padding: 5px;
   border-radius: 12px;
 }
-.search_bar form {
+#search_bar form {
   display: flex;
 }
-.search_bar input {
+#search_bar input {
   border: none;
   outline: none;
 }
-.search_bar button {
+#search_bar button {
   background-color: white;
   border: none;
   cursor: pointer;
@@ -234,6 +234,7 @@ main {
 .main_content {
   display: flex;
   gap: 60px;
+  padding-bottom: 20px;
 }
 .main_news {
   display: flex;
@@ -395,4 +396,107 @@ footer div a {
   color: white;
   text-decoration: none;
   font-weight: 600;
+}
+@media only screen and (max-width: 600px) {
+  /* Header*/
+  header {
+    transition: padding 0.5s ease-out;
+    overflow: hidden;
+    padding: 10px;
+    align-items: center;
+  }
+  .navigation_container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .navigation_container h1 {
+    margin: 20px 0 5px 0;
+  }
+  .today_container {
+    display: none;
+  }
+  .navigation_container ul {
+    padding: 0;
+  }
+  #search_bar {
+    border: none;
+    max-height: 0;
+    position: relative;
+    transition: max-height 0.5s ease-in-out;
+  }
+
+  #search_bar form {
+    width: 80vw;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 30px;
+    background: white;
+    margin-left: -50px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 12px;
+    position: absolute;
+    transition: all 0.5s ease-in-out;
+  }
+
+  #search_bar input {
+    flex: 1;
+  }
+  #search_bar button {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .section_container {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .section_container ul {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: flex-start;
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0 20px 0;
+    gap: 10px;
+  }
+
+  .section_container ul li {
+    flex: 0 0 auto;
+    display: inline;
+  }
+
+  .section_container ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    padding: 10px;
+  }
+
+  .main_content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .main_news {
+    width: 90%;
+  }
+  .main_news section h3 {
+    padding: 30px 0 0 0;
+  }
+  .news_container a {
+    width: 100%;
+  }
+  .back_top {
+    display: none;
+  }
+  .finance_data {
+    width: 90%;
+    padding: 0;
+  }
+
+  footer div {
+    padding: 0 50px;
+  }
 }
