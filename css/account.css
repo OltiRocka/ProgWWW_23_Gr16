@@ -2,9 +2,11 @@ main {
   min-height: 80vh;
 }
 #form-container {
+  background-image: url("/assets/paper.png");
+  background-repeat: repeat;
+  background-attachment: fixed;
   margin-top: 50px;
-  outline: 1px solid #ddd;
-  outline-offset: 20px;
+  border: 1px solid #ddd;
   border-radius: 12px;
   width: 600px;
   display: flex;
@@ -16,6 +18,7 @@ main {
 
 #form-container form {
   display: flex;
+  padding: 20px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -28,7 +31,7 @@ main {
 }
 
 #form-container form input {
-  width: 250px;
+  width: 220px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

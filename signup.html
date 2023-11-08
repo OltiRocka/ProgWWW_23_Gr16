@@ -60,6 +60,7 @@
             <label for="email">Email:</label>
             <input type="email" id="email" required />
           </div>
+
           <div>
             <label for="date">Date of Birth:</label>
             <input type="date" id="date" required />
@@ -71,6 +72,14 @@
           <div>
             <label for="confirm">Confirm Password:</label>
             <input type="password" id="confirm" required />
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center">
+            <input
+              type="checkbox"
+              style="width: auto; margin-right: 0"
+              id="check"
+            />
+            <p>Accept Terms and Agreements</p>
           </div>
           <button type="submit">Sign Up</button>
         </form>
@@ -108,28 +117,35 @@
         }
       });
       form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const email = document.querySelector("#email").value;
-        const name = document.querySelector("#name").value;
-        const last = document.querySelector("#last").value;
-        const date = document.querySelector("#date").value;
-        const password = document.querySelector("#password").value;
-        const confirm = document.querySelector("#confirm").value;
-        if (password === confirm) {
-          try {
-            const user = await signup(email, password);
-            let userData = {
-              name: name,
-              surname: last,
-              email: email,
-              dateOfBirth: date,
-            };
-            await createUser(user.uid, userData);
-          } catch (error) {
-            document.getElementById("warning").innerText = error.message;
+        const check = document.getElementById("check");
+        const warning = document.getElementById("warning");
+        console.log(check.value);
+        if (check.checked) {
+          e.preventDefault();
+          const email = document.querySelector("#email").value;
+          const name = document.querySelector("#name").value;
+          const last = document.querySelector("#last").value;
+          const date = document.querySelector("#date").value;
+          const password = document.querySelector("#password").value;
+          const confirm = document.querySelector("#confirm").value;
+          if (password === confirm) {
+            try {
+              const user = await signup(email, password);
+              let userData = {
+                name: name,
+                surname: last,
+                email: email,
+                dateOfBirth: date,
+              };
+              await createUser(user.uid, userData);
+            } catch (error) {
+              document.getElementById("warning").innerText = error.message;
+            }
+          } else {
+            warning.innerText = "passwords dont match";
           }
         } else {
-          console.log("passwords dont match");
+          warning.innerText = "You have to Accept Terms and Conditions";
         }
       });
     });
