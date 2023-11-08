@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Signup</h2>
+    <form id="signup-form">
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required />
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p id="warning"></p>
+    <div class="already_container">
+      <a href="signin.html">Already Have an Account?</a>
+    </div>
+  </body>
+  <script type="module">
+    import { signup, auth } from "./js/modules/firebase.js"; // adjust the path as necessary
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.querySelector("#signup-form");
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          location.href = "profile.html";
+          console.log("test");
+        } else {
+          console.log("Not Logged In");
+        }
+      });
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
+
+        try {
+          const user = await signup(email, password);
+          console.log("User created:", user);
+        } catch (error) {
+          document.getElementById("warning").innerText = getWarningMessage(
+            error.message
+          );
+        }
+      });
+    });
+  </script>
+  <script>
+    Object.defineProperty(String.prototype, "capitalize", {
+      value: function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+      },
+      enumerable: false,
+    });
+    function getWarningMessage(text) {
+      return text.split("/")[1].split(")")[0].replace(/-/g, " ").capitalize();
+    }
+  </script>
+</html>

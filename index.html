@@ -147,7 +147,7 @@
                 Live TV</a
               >
             </li>
-            <li><a href="signin.html">Log In</a></li>
+            <li><a id="account" href="signin.html">Log In</a></li>
           </ul>
         </nav>
       </div>
@@ -227,5 +227,21 @@
     </footer>
     <script src="js/scripts.js"></script>
     <script src="js/jquery.js"></script>
+    <script type="module">
+      import { login, auth } from "./js/modules/firebase.js"; // adjust the path as necessary
+      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const account = document.querySelector("#account");
+        onAuthStateChanged(auth, (user) => {
+          console.log(user);
+          if (user) {
+            console.log("test");
+            account.href = "profile.html";
+            account.innerText = "Profile";
+          }
+        });
+      });
+    </script>
   </body>
 </html>

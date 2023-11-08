@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="logout-button">LOGOUT</button>
+    <p id="user-data"></p>
+  </body>
+  <script type="module" src="js/modules/firebase.js"></script>
+  <script type="module">
+    import { logout, auth } from "./js/modules/firebase.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const button = document.getElementById("logout-button");
+      const userData = document.getElementById("user-data");
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userData.innerText = user;
+        } else {
+          location.href = "signin.html";
+        }
+      });
+      button.addEventListener("click", async (e) => {
+        logout();
+      });
+    });
+  </script>
+  <script type="module">
+    import { login, auth } from "./js/modules/firebase.js"; // adjust the path as necessary
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const account = document.querySelector("#account");
+      onAuthStateChanged(auth, (user) => {
+        console.log(user);
+        if (user) {
+          console.log("test");
+          account.href = "profile.html";
+          account.innerText = "Profile";
+        }
+      });
+    });
+  </script>
+</html>
