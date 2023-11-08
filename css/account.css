@@ -1,0 +1,93 @@
+main {
+  min-height: 80vh;
+}
+#form-container {
+  margin-top: 50px;
+  outline: 1px solid #ddd;
+  outline-offset: 20px;
+  border-radius: 12px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 40px 0;
+}
+
+#form-container form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+/* Form input fields styling */
+#form-container form div {
+  position: relative;
+  padding-top: 15px; /* Space for label to float */
+}
+
+#form-container form input {
+  width: 250px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+#form-container form input:focus {
+  border-color: #ff5c00;
+  outline: none;
+}
+
+/* Form label styling */
+#form-container form label {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  color: #999;
+  background-color: #fff;
+  padding: 0 5px;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  transform-origin: left top;
+}
+
+#form-container form input:placeholder-shown + label {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+#form-container form input:not(:placeholder-shown) + label,
+#form-container form input:focus + label {
+  top: -10px;
+  transform: translateY(-100%) scale(0.75);
+  font-size: 12px;
+  color: #ff5c00;
+}
+
+/* Button styling */
+#form-container form button {
+  padding: 10px 40px;
+  border: none;
+  background-color: #ff5c00;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#form-container form button:hover {
+  background-color: #ff5e0098;
+}
+.already_container {
+  display: flex;
+  justify-content: center;
+  gap: 200px;
+  width: 80%;
+}
+.buttons {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}

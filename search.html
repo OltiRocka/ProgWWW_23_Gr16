@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/all.css" />
     <title>Roka News</title>
     <link rel="stylesheet" href="css/search.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.0.6/fetch-jsonp.min.js"></script>
@@ -77,7 +78,7 @@
               >
             </li>
 
-            <li><a href="signin.html">Log In</a></li>
+            <li><a id="account" href="signin.html">Log In</a></li>
           </ul>
         </nav>
       </div>
@@ -136,9 +137,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       const account = document.querySelector("#account");
       onAuthStateChanged(auth, (user) => {
-        console.log(user);
         if (user) {
-          console.log("test");
           account.href = "profile.html";
           account.innerText = "Profile";
         }

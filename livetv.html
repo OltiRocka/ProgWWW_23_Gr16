@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roka News</title>
+    <link rel="stylesheet" href="css/all.css" />
     <link rel="stylesheet" href="css/livetv.css" />
     <link href="https://vjs.zencdn.net/7.7.6/video-js.css" rel="stylesheet" />
 
@@ -101,7 +102,7 @@
               >
             </li>
 
-            <li><a href="signin.html">Log In</a></li>
+            <li><a id="account" href="signin.html">Log In</a></li>
           </ul>
         </nav>
       </div>
@@ -142,9 +143,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       const account = document.querySelector("#account");
       onAuthStateChanged(auth, (user) => {
-        console.log(user);
         if (user) {
-          console.log("test");
           account.href = "profile.html";
           account.innerText = "Profile";
         }

@@ -3,37 +3,106 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/account.css" />
+    <link rel="stylesheet" href="css/all.css" />
     <title>Document</title>
   </head>
   <body>
-    <h2>Signup</h2>
-    <form id="signup-form">
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" required />
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" required />
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
+    <header>
+      <div class="navigation_container">
+        <div class="today_container">
+          <img src="./assets/globe.png" alt="globe" />
+          <p id="today"></p>
+        </div>
+        <h1 class="title"><a href="index.html">R<span>o</span>ka News</a></h1>
+        <nav>
+          <ul>
+            <img
+              src="./assets/search.png"
+              alt="phone-search"
+              id="phone-search"
+              onclick="searchOnPhone()"
+            />
+            <li id="search_bar">
+              <form action="/search.html" id="searchForm" method="get">
+                <input type="text" id="searchInput" name="q" required />
+                <button type="submit" id="searchButton">
+                  <img src="./assets/search.png" alt="search-icon" />
+                </button>
+              </form>
+            </li>
+            <li><a href="index.html">Latest News</a></li>
+            <li>
+              <a href="livetv.html"
+                ><div class="circle"></div>
+                Live TV</a
+              >
+            </li>
 
-    <p id="warning"></p>
-    <div class="already_container">
-      <a href="signin.html">Already Have an Account?</a>
-    </div>
+            <li><a id="account" href="signin.html">Log In</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div id="form-container">
+        <h2>Signup</h2>
+        <form id="signup-form">
+          <div>
+            <label for="name">First Name:</label>
+            <input type="text" id="name" required />
+          </div>
+          <div>
+            <label for="last">Last Name:</label>
+            <input type="text" id="last" required />
+          </div>
+          <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required />
+          </div>
+          <div>
+            <label for="date">Date of Birth:</label>
+            <input type="date" id="date" required />
+          </div>
+          <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required />
+          </div>
+          <div>
+            <label for="confirm">Confirm Password:</label>
+            <input type="password" id="confirm" required />
+          </div>
+          <button type="submit">Sign Up</button>
+        </form>
+
+        <p id="warning"></p>
+        <div class="already_container">
+          <a href="signin.html">Already Have an Account?</a>
+        </div>
+      </div>
+    </main>
+    <footer id="footer-content">
+      <div>
+        <address style="text-align: left">
+          Made by <a href="mailto:olti@roka.dev">Olti Roka</a>.<br />
+          Visit me at:
+          <a href="https://roka.dev">Roka.Dev</a><br />
+        </address>
+        <p>&copy; 2023 Roka News</p>
+      </div>
+    </footer>
   </body>
   <script type="module">
-    import { signup, auth } from "./js/modules/firebase.js"; // adjust the path as necessary
+    import { signup, auth, createUser } from "./js/modules/firebase.js"; // adjust the path as necessary
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 
     document.addEventListener("DOMContentLoaded", () => {
       const form = document.querySelector("#signup-form");
-      onAuthStateChanged(auth, (user) => {
+      const account = document.querySelector("#account");
+      onAuthStateChanged(auth, async (user) => {
         if (user) {
-          location.href = "profile.html";
-          console.log("test");
+          account.href = "profile.html";
+          account.innerText = "Profile";
         } else {
           console.log("Not Logged In");
         }
@@ -41,15 +110,26 @@
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const email = document.querySelector("#email").value;
+        const name = document.querySelector("#name").value;
+        const last = document.querySelector("#last").value;
+        const date = document.querySelector("#date").value;
         const password = document.querySelector("#password").value;
-
-        try {
-          const user = await signup(email, password);
-          console.log("User created:", user);
-        } catch (error) {
-          document.getElementById("warning").innerText = getWarningMessage(
-            error.message
-          );
+        const confirm = document.querySelector("#confirm").value;
+        if (password === confirm) {
+          try {
+            const user = await signup(email, password);
+            let userData = {
+              name: name,
+              surname: last,
+              email: email,
+              dateOfBirth: date,
+            };
+            await createUser(user.uid, userData);
+          } catch (error) {
+            document.getElementById("warning").innerText = error.message;
+          }
+        } else {
+          console.log("passwords dont match");
         }
       });
     });

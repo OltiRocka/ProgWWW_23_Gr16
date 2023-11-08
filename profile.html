@@ -3,45 +3,165 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/account.css" />
+    <link rel="stylesheet" href="css/all.css" />
     <title>Document</title>
   </head>
   <body>
-    <button id="logout-button">LOGOUT</button>
-    <p id="user-data"></p>
+    <header>
+      <div class="navigation_container">
+        <div class="today_container">
+          <img src="./assets/globe.png" alt="globe" />
+          <p id="today"></p>
+        </div>
+        <h1 class="title"><a href="index.html">R<span>o</span>ka News</a></h1>
+        <nav>
+          <ul>
+            <img
+              src="./assets/search.png"
+              alt="phone-search"
+              id="phone-search"
+              onclick="searchOnPhone()"
+            />
+            <li id="search_bar">
+              <form action="/search.html" id="searchForm" method="get">
+                <input type="text" id="searchInput" name="q" required />
+                <button type="submit" id="searchButton">
+                  <img src="./assets/search.png" alt="search-icon" />
+                </button>
+              </form>
+            </li>
+            <li><a href="index.html">Latest News</a></li>
+            <li>
+              <a href="livetv.html"
+                ><div class="circle"></div>
+                Live TV</a
+              >
+            </li>
+
+            <li><a id="account" href="signin.html">Log In</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <main>
+        <div id="form-container">
+          <h2>Update Profile</h2>
+          <form id="update-form">
+            <div>
+              <label for="name">First Name:</label>
+              <input type="text" id="name" required />
+            </div>
+            <div>
+              <label for="last">Last Name:</label>
+              <input type="text" id="last" required />
+            </div>
+            <div>
+              <label for="email">Email:</label>
+              <input type="email" id="email" required />
+            </div>
+            <div>
+              <label for="date">Date of Birth:</label>
+              <input type="date" id="date" required />
+            </div>
+            <div>
+              <label for="password">Password:</label>
+              <input type="password" id="password" />
+            </div>
+            <div>
+              <label for="confirm">Confirm Password:</label>
+              <input type="password" id="confirm" />
+            </div>
+            <div class="buttons">
+              <button type="submit">Save</button
+              ><button id="logout-button">LOGOUT</button>
+            </div>
+          </form>
+
+          <p id="warning"></p>
+          <div class="already_container"></div>
+        </div>
+      </main>
+    </main>
+    <footer id="footer-content">
+      <div>
+        <address style="text-align: left">
+          Made by <a href="mailto:olti@roka.dev">Olti Roka</a>.<br />
+          Visit me at:
+          <a href="https://roka.dev">Roka.Dev</a><br />
+        </address>
+        <p>&copy; 2023 Roka News</p>
+      </div>
+    </footer>
   </body>
+
   <script type="module" src="js/modules/firebase.js"></script>
   <script type="module">
-    import { logout, auth } from "./js/modules/firebase.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+    import {
+      logout,
+      auth,
+      getUser,
+      updateUser,
+    } from "./js/modules/firebase.js";
+    import {
+      onAuthStateChanged,
+      updatePassword,
+      updateEmail,
+    } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 
     document.addEventListener("DOMContentLoaded", () => {
-      const button = document.getElementById("logout-button");
-      const userData = document.getElementById("user-data");
-      onAuthStateChanged(auth, (user) => {
+      const form = document.getElementById("update-form");
+      const logoutButton = document.getElementById("logout-button");
+      const name = document.getElementById("name");
+      const last = document.getElementById("last");
+      const email = document.getElementById("email");
+      const date = document.getElementById("date");
+      const password = document.getElementById("password");
+      const confirm = document.getElementById("confirm");
+      const account = document.querySelector("#account");
+      onAuthStateChanged(auth, async (user) => {
         if (user) {
-          userData.innerText = user;
+          account.href = "profile.html";
+          account.innerText = "Profile";
+          if (!user.emailVerified) {
+            logout();
+          } else {
+            const data = await getUser(user.uid);
+            name.value = data.name ? data.name : "";
+            last.value = data.surname ? data.surname : "";
+            email.value = data.email ? data.email : "";
+            date.value = data.dateOfBirth ? data.dateOfBirth : "";
+
+            form.addEventListener("submit", async (e) => {
+              e.preventDefault();
+              try {
+                let userData = {
+                  name: name.value,
+                  surname: last.value,
+                  email: email.value,
+                  dateOfBirth: date.value,
+                };
+                await updateUser(user.uid, userData);
+                if (email.value !== data.email) {
+                  await updateEmail(user, email.value);
+                }
+                if (password.value === confirm.value) {
+                  await updatePassword(user, password.value);
+                } else {
+                  console.log("passwords dont match");
+                }
+              } catch (error) {
+                document.getElementById("warning").innerText = error.message;
+              }
+            });
+          }
         } else {
           location.href = "signin.html";
         }
       });
-      button.addEventListener("click", async (e) => {
+      logoutButton.addEventListener("click", async (e) => {
         logout();
-      });
-    });
-  </script>
-  <script type="module">
-    import { login, auth } from "./js/modules/firebase.js"; // adjust the path as necessary
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const account = document.querySelector("#account");
-      onAuthStateChanged(auth, (user) => {
-        console.log(user);
-        if (user) {
-          console.log("test");
-          account.href = "profile.html";
-          account.innerText = "Profile";
-        }
       });
     });
   </script>
