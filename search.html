@@ -31,7 +31,7 @@
         createSearchNews(searchData.news);
 
         const count = document.getElementById("results_count");
-        const boldElement = document.createElement("b");
+        const boldElement = document.createElement("mark");
         boldElement.innerText = search;
         count.innerHTML = "";
         count.innerText = ` Showing ${searchData.meta["start"]} - ${searchData.meta["end"]} out of ${searchData.meta["of"]} for `;
@@ -117,10 +117,16 @@
       <div class="pagination"></div>
     </main>
     <footer id="footer-content">
-      <div>
-        <a href="mailto:olti@roka.dev" target="_blank">Contact Us</a>
-        <p>&copy; 2023 Roka News</p>
-      </div>
+      <footer id="footer-content" style="display: none">
+        <div>
+          <address style="text-align: left">
+            Made by <a href="mailto:olti@roka.dev">Olti Roka</a>.<br />
+            Visit me at:
+            <a href="https://roka.dev">Roka.Dev</a><br />
+          </address>
+          <p>&copy; 2023 Roka News</p>
+        </div>
+      </footer>
     </footer>
   </body>
 </html>

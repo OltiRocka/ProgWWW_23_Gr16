@@ -47,6 +47,8 @@ header {
   font-size: 48px;
 }
 .title span {
+  transform: skew(-0.06turn, 18deg);
+  display: inline-block;
   color: #ff5c00;
 }
 .title a {
@@ -55,6 +57,8 @@ header {
 }
 nav {
   flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 nav ul {
   list-style-type: none;
@@ -234,7 +238,17 @@ main {
   color: black;
   font-weight: 600;
 }
-
+.back_top.animated svg {
+  animation: oRotation 0.5s linear normal;
+}
+@keyframes oRotation {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(360deg);
+  }
+}
 .pagination {
   display: flex;
   gap: 20px;
@@ -346,6 +360,9 @@ a.disabled {
   color: #ccc;
   font-size: 12px;
 }
+#phone-search {
+  display: none;
+}
 @media only screen and (max-width: 600px) {
   /* Header*/
   header {
@@ -353,6 +370,9 @@ a.disabled {
     overflow: hidden;
     padding: 10px;
     align-items: center;
+  }
+  #phone-search {
+    display: inline-block;
   }
   .navigation_container {
     flex-direction: column;

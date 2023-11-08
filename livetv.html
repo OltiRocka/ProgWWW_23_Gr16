@@ -16,22 +16,11 @@
         const channelData = await getChannelData(channel);
         const streamContainer = document.getElementById("main-video");
         if (channel) {
-          streamContainer.innerHTML = "";
-          const streamer = document.createElement("iframe");
-          streamer.id = "streamer";
-          streamer.frameBorder = "0";
-          streamer.setAttribute("allow", "fullscreen");
+          const streamer = document.getElementById("streamer");
           const streamTitle = document.createElement("h2");
           streamer.src = channelData.data.url;
           streamTitle.innerText = channel;
-          streamContainer.appendChild(streamer);
           streamContainer.appendChild(streamTitle);
-        } else {
-          streamContainer.innerHTML = "";
-          const streamer = document.createElement("img");
-          streamer.id = "streamer";
-          streamer.src = "./assets/onhold.jpg";
-          streamContainer.appendChild(streamer);
         }
 
         const videosContainer = document.getElementById("all-videos");
@@ -120,7 +109,9 @@
     <div id="loading-screen"><span class="loader"></span></div>
     <main id="main-content" style="display: none">
       <div class="video_container">
-        <div id="main-video"></div>
+        <div id="main-video">
+          <iframe id="streamer" frameborder="0" allow="fullscreen"></iframe>
+        </div>
       </div>
       <h1 style="padding-top: 60px">ALL CHANNELS</h1>
       <div id="video-gallery">
@@ -132,7 +123,11 @@
 
     <footer id="footer-content" style="display: none">
       <div>
-        <a href="mailto:olti@roka.dev" target="_blank">Contact Us</a>
+        <address style="text-align: left">
+          Made by <a href="mailto:olti@roka.dev">Olti Roka</a>.<br />
+          Visit me at:
+          <a href="https://roka.dev">Roka.Dev</a><br />
+        </address>
         <p>&copy; 2023 Roka News</p>
       </div>
     </footer>

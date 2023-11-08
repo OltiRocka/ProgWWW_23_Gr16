@@ -47,6 +47,8 @@ header {
   font-size: 48px;
 }
 .title span {
+  transform: skew(-0.06turn, 18deg);
+  display: inline-block;
   color: #ff5c00;
 }
 .title a {
@@ -55,6 +57,8 @@ header {
 }
 nav {
   flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 nav ul {
   list-style-type: none;
@@ -233,7 +237,17 @@ main {
   color: black;
   font-weight: 600;
 }
-
+.back_top.animated svg {
+  animation: oRotation 0.5s linear normal;
+}
+@keyframes oRotation {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(360deg);
+  }
+}
 #newsDetail {
   width: 100%;
   display: flex;
@@ -266,6 +280,9 @@ main {
   font-size: 14px;
   color: rgba(8, 8, 8, 0.5);
 }
+#phone-search {
+  display: none;
+}
 @media only screen and (max-width: 600px) {
   /* Header*/
   header {
@@ -273,6 +290,9 @@ main {
     overflow: hidden;
     padding: 10px;
     align-items: center;
+  }
+  #phone-search {
+    display: inline-block;
   }
   .navigation_container {
     flex-direction: column;

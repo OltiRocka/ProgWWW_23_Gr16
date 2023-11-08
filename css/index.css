@@ -44,15 +44,21 @@ header {
   justify-self: center;
   font-size: 48px;
 }
+
 .title span {
+  transform: skew(-0.06turn, 18deg);
+  display: inline-block;
   color: #ff5c00;
 }
 .title a {
   text-decoration: none;
   color: black;
 }
+
 nav {
   flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 nav ul {
   list-style-type: none;
@@ -111,7 +117,7 @@ nav ul li a {
   }
   80%,
   100% {
-    opacity: 0;
+    background-color: white;
   }
 }
 
@@ -230,7 +236,17 @@ main {
   color: black;
   font-weight: 600;
 }
-
+.back_top.animated svg {
+  animation: oRotation 0.5s linear normal;
+}
+@keyframes oRotation {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(360deg);
+  }
+}
 .main_content {
   display: flex;
   gap: 60px;
@@ -348,12 +364,21 @@ main {
   width: 50px;
   border-radius: 20px;
 }
+.finance_data div:first-child {
+  outline: none;
+}
+.finance_data div {
+  outline: 2px solid #d5d1c9;
+  outline-offset: 5px;
+  border-radius: 2px;
+}
 .finance_data canvas {
   width: 100%;
   height: fit-content;
 }
 .finance_data table {
   width: 90%;
+  border-spacing: 3px;
   border: 1px solid #d5d1c9;
   border-collapse: separate;
   border-spacing: 0;
@@ -378,7 +403,9 @@ main {
 .finance_data tbody td:nth-child(4) {
   color: #ff5c00;
 }
-
+#phone-search {
+  display: none;
+}
 /* footer */
 footer {
   background-color: #1d1d1d;
@@ -408,6 +435,9 @@ footer div a {
     padding: 10px;
     align-items: center;
   }
+  #phone-search {
+    display: inline-block;
+  }
   .navigation_container {
     flex-direction: column;
     align-items: center;
@@ -430,7 +460,6 @@ footer div a {
 
   #search_bar form {
     width: 80vw;
-    opacity: 0;
     max-height: 0;
     margin-top: 30px;
     background: white;

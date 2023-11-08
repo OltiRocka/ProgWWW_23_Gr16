@@ -573,31 +573,12 @@ async function getLocation() {
     updateLocationText("Geolocation not supported", "");
   }
 }
-function searchOnPhone() {
-  const form = document.getElementById("searchForm");
-  const header = document.getElementsByTagName("header")[0];
-  const bar = document.getElementById("search_bar");
-  const currentMaxHeight = window.getComputedStyle(bar).maxHeight;
-
-  if (currentMaxHeight === "0px" || currentMaxHeight === "") {
-    bar.style.maxHeight = "500px";
-    form.style.maxHeight = "500px";
-    header.style.paddingBottom = "60px";
-    setTimeout(() => {
-      form.style.opacity = "1";
-    }, 10);
-  } else {
-    bar.style.maxHeight = "0";
-    form.style.maxHeight = "0";
-    header.style.paddingBottom = "10px";
-    form.style.opacity = "0";
-  }
-}
 
 // Canvas Chart from src: https://www.c-sharpcorner.com/UploadFile/18ddf7/html5-line-graph-using-canvas/
 
 function LineChart(con) {
   this.canvas = document.getElementById(con.canvasId);
+
   this.minX = con.minX;
   this.minY = con.minY;
   this.maxX = con.maxX;
@@ -701,8 +682,16 @@ LineChart.prototype.drawYAxis = function () {
 LineChart.prototype.drawLine = function (data, color, width) {
   let context = this.context;
   context.save();
-
+  const img = new Image();
+  img.src = "./assets/lines.png";
   this.transformContext();
+  const grd = context.createLinearGradient(0, 0, 0, 100);
+  grd.addColorStop(0, "#eee");
+  grd.addColorStop(1, "white");
+  // Fill with gradient
+  context.fillStyle = grd;
+  context.fillRect(0, 0, this.width + 100, this.height);
+  this.context.drawImage(img, 0, 0);
 
   context.lineWidth = width;
   context.strokeStyle = color;
