@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Scroll to top
-  var top_links = document.querySelectorAll('a[href="#"]');
+  let top_links = document.querySelectorAll('a[href="#"]');
 
-  for (var i = 0; i < top_links.length; i++) {
+  for (let i = 0; i < top_links.length; i++) {
     top_links[i].addEventListener("click", function (e) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -14,6 +14,7 @@ function appendDataToDOM(symbol, tableData) {
   let tableHTML = `
     <div>
         <h3>${symbol}</h3>
+        <canvas id="canvas-${symbol}"  ></canvas>  
         <table>
             <thead>
                 <tr>
@@ -40,8 +41,47 @@ function appendDataToDOM(symbol, tableData) {
         </table>
     </div>`;
 
-  document.querySelector(".finance_data").innerHTML += tableHTML;
+  let container = document.querySelector(".finance_data");
+  container.insertAdjacentHTML("beforeend", tableHTML);
+
+  // Now that the DOM is guaranteed to be updated, draw the line chart
+  drawChartForSymbol(symbol, tableData);
 }
+
+function drawChartForSymbol(symbol, tableData) {
+  let maxValue = Math.max.apply(
+    Math,
+    tableData.map(function (o) {
+      return parseFloat(o.close);
+    })
+  );
+  let minValue = Math.min.apply(
+    Math,
+    tableData.map(function (o) {
+      return parseFloat(o.close);
+    })
+  );
+  let deltaValue = Math.round((maxValue - minValue) / 6);
+  // Convert table data to a format suitable for the chart
+  let reversedTableData = [...tableData].reverse(); // Create a reversed copy of tableData
+  let chartData = reversedTableData.map(function (item, index) {
+    return { x: index + 1, y: parseFloat(item.close) };
+  });
+  // Create a new LineChart instance for the canvas
+  const myLineChart = new LineChart({
+    canvasId: `canvas-${symbol}`,
+    minX: 0,
+    minY: minValue - deltaValue,
+    maxX: tableData.length,
+    maxY: maxValue,
+    unitsPerTickX: 1,
+    unitsPerTickY: deltaValue,
+  });
+
+  // Draw the line on the chart
+  myLineChart.drawLine(chartData.reverse(), "red", 3);
+}
+
 function playSelectedStation() {
   const radioSelect = document.getElementById("radio-select");
   const radioPlayer = document.getElementById("radio-player");
@@ -63,7 +103,7 @@ function playSelectedStation() {
   }
 }
 function addRadioStations() {
-  var radioStations = {
+  let radioStations = {
     "Radio Dukagjini": {
       url: "https://s2.voscast.com:8825/radiodukagjini",
       img: "https://www.dukagjini.com/wp-content/uploads/2022/06/RadioDukagjini.jpg",
@@ -78,10 +118,10 @@ function addRadioStations() {
     },
   };
 
-  var selectElement = document.getElementById("radio-select");
+  let selectElement = document.getElementById("radio-select");
 
-  for (var name in radioStations) {
-    var optionElement = document.createElement("option");
+  for (let name in radioStations) {
+    let optionElement = document.createElement("option");
     optionElement.value = radioStations[name].url;
     optionElement.dataset.img = radioStations[name].img;
     optionElement.textContent = name;
@@ -553,3 +593,162 @@ function searchOnPhone() {
     form.style.opacity = "0";
   }
 }
+
+// Canvas Chart from src: https://www.c-sharpcorner.com/UploadFile/18ddf7/html5-line-graph-using-canvas/
+
+function LineChart(con) {
+  this.canvas = document.getElementById(con.canvasId);
+  this.minX = con.minX;
+  this.minY = con.minY;
+  this.maxX = con.maxX;
+  this.maxY = con.maxY;
+  this.unitsPerTickX = con.unitsPerTickX;
+  this.unitsPerTickY = con.unitsPerTickY;
+
+  this.padding = 10;
+  this.axisOffset = -0.5;
+  this.tickSize = 10;
+  this.axisColor = "#555";
+  this.pointRadius = 5;
+  this.font = "12pt Calibri";
+
+  this.fontHeight = 12;
+
+  this.context = this.canvas.getContext("2d");
+  this.rangeX = this.maxX - this.minY;
+  this.rangeY = this.maxY - this.minY;
+  this.numXTicks = Math.round(this.rangeX / this.unitsPerTickX);
+  this.numYTicks = Math.round(this.rangeY / this.unitsPerTickY);
+  this.x = this.padding;
+  this.y = this.padding * 2;
+  this.width = this.canvas.width - this.x - this.padding * 2;
+  this.height = this.canvas.height - this.y - this.padding - this.fontHeight;
+  this.scaleX = this.width / (this.maxX - this.minX);
+  this.scaleY = this.height / (this.maxY - this.minY);
+
+  this.drawXAxis();
+  this.drawYAxis();
+}
+LineChart.prototype.getLongestValueWidth = function () {
+  this.context.font = this.font;
+  let longestValueWidth = 0;
+  for (let n = 0; n <= this.numYTicks; n++) {
+    let value = this.maxY - n * this.unitsPerTickY;
+    longestValueWidth = Math.max(
+      longestValueWidth,
+      this.context.measureText(value).width
+    );
+  }
+  return longestValueWidth;
+};
+LineChart.prototype.drawXAxis = function () {
+  let context = this.context;
+  context.save();
+  context.beginPath();
+  context.moveTo(this.x, this.y + this.height);
+  context.lineTo(this.x + this.width, this.y + this.height);
+  context.strokeStyle = this.axisColor;
+  context.lineWidth = 2;
+  context.stroke();
+
+  context.font = this.font;
+  context.fillStyle = "black";
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+
+  for (let n = 0; n < this.numXTicks; n++) {
+    let label = Math.round(((n + 1) * this.maxX) / this.numXTicks);
+    context.save();
+    context.translate(
+      ((n + 1) * this.width) / this.numXTicks + this.x,
+      this.y + this.height + this.padding
+    );
+    context.fillText(label, 0, 0);
+    context.restore();
+  }
+  context.restore();
+};
+LineChart.prototype.drawYAxis = function () {
+  let context = this.context;
+  context.save();
+  context.save();
+  context.beginPath();
+  context.moveTo(this.x, this.y);
+  context.lineTo(this.x, this.y + this.height);
+  context.strokeStyle = this.axisColor;
+  context.lineWidth = 2;
+  context.stroke();
+  context.restore();
+
+  // draw values
+  context.font = this.font;
+  context.fillStyle = "black";
+  context.textAlign = "right";
+  context.textBaseline = "middle";
+
+  for (let n = 0; n < this.numYTicks; n++) {
+    let value = Math.round(this.maxY - (n * this.maxY) / this.numYTicks);
+    context.save();
+    context.translate(
+      this.x - this.padding,
+      (n * this.height) / this.numYTicks + this.y
+    );
+    context.fillText(value, 0, 0);
+    context.restore();
+  }
+  context.restore();
+};
+LineChart.prototype.drawLine = function (data, color, width) {
+  let context = this.context;
+  context.save();
+
+  this.transformContext();
+
+  context.lineWidth = width;
+  context.strokeStyle = color;
+  context.fillStyle = color;
+
+  context.beginPath();
+
+  context.moveTo(
+    (data[0].x - this.minX + this.axisOffset) * this.scaleX,
+    (data[0].y - this.minY) * this.scaleY
+  );
+
+  // Draw lines to each subsequent point.
+  for (let n = 1; n < data.length; n++) {
+    let point = data[n];
+    context.lineTo(
+      (point.x - this.minX + this.axisOffset) * this.scaleX,
+      (point.y - this.minY) * this.scaleY
+    );
+  }
+  context.stroke(); // Apply the stroke to the line.
+
+  // Draw points on the line
+  for (let n = 0; n < data.length; n++) {
+    let point = data[n];
+    context.beginPath();
+    context.arc(
+      (point.x - this.minX + this.axisOffset) * this.scaleX,
+      (point.y - this.minY) * this.scaleY,
+      this.pointRadius,
+      0,
+      2 * Math.PI
+    );
+    context.fill();
+  }
+
+  // Restore the context to its original state.
+  context.restore();
+};
+
+LineChart.prototype.transformContext = function () {
+  let context = this.context;
+
+  // Translate context to the starting point of the axes.
+  context.translate(this.x, this.y + this.height);
+
+  // Scale context to invert the y-axis (to go up for increasing values).
+  context.scale(1, -1);
+};

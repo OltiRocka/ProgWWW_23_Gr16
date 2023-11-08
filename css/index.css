@@ -348,7 +348,10 @@ main {
   width: 50px;
   border-radius: 20px;
 }
-
+.finance_data canvas {
+  width: 100%;
+  height: fit-content;
+}
 .finance_data table {
   width: 90%;
   border: 1px solid #d5d1c9;
