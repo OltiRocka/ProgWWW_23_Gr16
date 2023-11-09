@@ -390,6 +390,8 @@ function changeSort(buttonElement) {
   urlParams.set("sort", currentSort);
   window.location.search = urlParams.toString();
 }
+const channelWorker = new Worker("/js/channelWorker.js");
+
 async function getChannelData(channel) {
   const channelList = [
     { name: "", url: "./assets/onhold.jpg", img: "" },
@@ -420,37 +422,13 @@ async function getChannelData(channel) {
     {
       name: "Big Brother VIP 1",
       abbr: "Big Brother",
-      url: await fetch(
-        "https://corsproxy.io/?https://bigbrothervipkosovalive.com/kanali-1/"
-      )
-        .then((response) => response.text())
-        .then((html) => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, "text/html");
-          const iframeSrc = doc.querySelector("iframe").getAttribute("src");
-          return iframeSrc;
-        })
-        .catch((error) => {
-          console.error("Error fetching data: ", error);
-        }),
+
       img: "https://media.anabelmagazine.com/o.anabel.al/media3/-785-0-637be0bbd8b8e.jpg",
     },
     {
       name: "Big Brother VIP 2",
       abbr: "Big Brother",
-      url: await fetch(
-        "https://corsproxy.io/?https://bigbrothervipkosovalive.com/kanali-2/"
-      )
-        .then((response) => response.text())
-        .then((html) => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, "text/html");
-          const iframeSrc = doc.querySelector("iframe").getAttribute("src");
-          return iframeSrc;
-        })
-        .catch((error) => {
-          console.error("Error fetching data: ", error);
-        }),
+
       img: "https://media.anabelmagazine.com/o.anabel.al/media3/-785-0-637be0bbd8b8e.jpg",
     },
     {
@@ -527,7 +505,27 @@ async function getChannelData(channel) {
     },
   ];
   const data = channelList.filter((i) => i.name === channel)[0];
-  return { data, channelList };
+
+  if (data && data.abbr === "Big Brother") {
+    const urlToFetch =
+      channel === "Big Brother VIP 1"
+        ? "https://corsproxy.io/?https://bigbrothervipkosovalive.com/kanali-1/"
+        : "https://corsproxy.io/?https://bigbrothervipkosovalive.com/kanali-2/";
+
+    channelWorker.postMessage({ action: "fetchIframeSrc", url: urlToFetch });
+    return new Promise((resolve, reject) => {
+      channelWorker.onmessage = (e) => {
+        if (e.data.success) {
+          data.url = e.data.iframeSrc;
+          resolve({ data, channelList });
+        } else {
+          reject(new Error("Failed to fetch iframe src: " + e.data.error));
+        }
+      };
+    });
+  } else {
+    return { data, channelList };
+  }
 }
 
 function getFormattedDate() {
@@ -750,3 +748,47 @@ LineChart.prototype.transformContext = function () {
   // Scale context to invert the y-axis (to go up for increasing values).
   context.scale(1, -1);
 };
+function validateEmail(email) {
+  const emailRegex = new RegExp("^\\S+@\\S+\\.\\S+$", "i");
+  return emailRegex.exec(email) !== null;
+}
+
+function validatePhone(phone) {
+  const phoneRegex = new RegExp("^0[3-4]{1}[0-9]{1}-[0-9]{3}-[0-9]{3}$", "ig");
+  return phoneRegex.test(phone);
+}
+
+function validatePassword(password) {
+  const passwordRegex = new RegExp(
+    "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$",
+    "ig"
+  );
+  return passwordRegex.test(password);
+}
+
+function handleFormSubmission(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const password = document.getElementById("password").value;
+
+  if (!validateEmail(email)) {
+    alert("Please enter a valid email address.");
+    return false;
+  }
+
+  if (!validatePhone(phone)) {
+    alert("Please enter a valid phone number in the format 04X-XXX-XXX.");
+    return false;
+  }
+
+  if (!validatePassword(password)) {
+    alert(
+      "Password must have at least one number, one lowercase and one uppercase letter, and at least 8 characters."
+    );
+    return false;
+  }
+
+  return true;
+}

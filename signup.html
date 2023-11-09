@@ -132,6 +132,7 @@
       getLocation();
       const form = document.querySelector("#signup-form");
       const account = document.querySelector("#account");
+      form.addEventListener("submit", handleFormSubmission);
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           account.href = "profile.html";

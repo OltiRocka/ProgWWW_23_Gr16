@@ -108,6 +108,9 @@ main {
 
   width: 60%;
 }
+.already_container a {
+  color: rgb(77, 76, 76);
+}
 .buttons {
   width: 60%;
   display: flex;
