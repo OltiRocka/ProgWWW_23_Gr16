@@ -50,7 +50,7 @@
         <form id="signup-form">
           <div>
             <label for="name">First Name:</label>
-            <input type="text" id="name" required />
+            <input type="text" id="name" required autofocus />
           </div>
           <div>
             <label for="last">Last Name:</label>
@@ -63,7 +63,25 @@
 
           <div>
             <label for="date">Date of Birth:</label>
-            <input type="date" id="date" required />
+            <input type="date" id="date" required min="1999-01-01" />
+          </div>
+          <div>
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" required autocomplete="on" />
+            <datalist id="genders">
+              <option value="Male"></option>
+              <option value="Female"></option>
+            </datalist>
+          </div>
+          <div>
+            <label for="phone">Phone number:</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="04X-XXX-XXX"
+              pattern="0[3-4]{1}[0-9]{1}-[0-9]{3}-[0-9]{3}"
+            />
           </div>
           <div>
             <label for="password">Password:</label>
@@ -87,6 +105,7 @@
         <p id="warning"></p>
         <div class="already_container">
           <a href="signin.html">Already Have an Account?</a>
+          <a href="forgot.html">Forgot Password?</a>
         </div>
       </div>
     </main>
@@ -106,6 +125,7 @@
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 
     document.addEventListener("DOMContentLoaded", () => {
+      getLocation();
       const form = document.querySelector("#signup-form");
       const account = document.querySelector("#account");
       onAuthStateChanged(auth, async (user) => {
@@ -128,6 +148,8 @@
           const date = document.querySelector("#date").value;
           const password = document.querySelector("#password").value;
           const confirm = document.querySelector("#confirm").value;
+          const gender = document.querySelector("#gender").value;
+          const phone = document.querySelector("#phone").value;
           if (password === confirm) {
             try {
               const user = await signup(email, password);
@@ -136,6 +158,8 @@
                 surname: last,
                 email: email,
                 dateOfBirth: date,
+                gender: gender,
+                phone: phone,
               };
               await createUser(user.uid, userData);
             } catch (error) {

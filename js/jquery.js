@@ -10,20 +10,7 @@ $(".back_top").on("click", function () {
 if (window.innerWidth <= 600) {
   $("#searchForm").fadeOut(0);
 }
-function searchOnPhone() {
-  const $form = $("#searchForm");
-  const $header = $("header").first();
-  const $bar = $("#search_bar");
-  const currentMaxHeight = $bar.css("maxHeight");
 
-  if (currentMaxHeight === "0px" || currentMaxHeight === "") {
-    $form.animate({ opacity: 1 }, 200);
-    $header.animate({ paddingBottom: "60px" }, 200);
-  } else {
-    $form.animate({ opacity: 0 }, 200);
-    $header.animate({ paddingBottom: "10px" }, 500);
-  }
-}
 function searchOnPhone() {
   const $form = $("#searchForm");
   const $header = $("header").first();

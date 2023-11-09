@@ -81,6 +81,7 @@
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 
     document.addEventListener("DOMContentLoaded", () => {
+      getLocation();
       const form = document.querySelector("#signin-form");
       const account = document.querySelector("#account");
       onAuthStateChanged(auth, (user) => {

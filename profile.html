@@ -51,7 +51,7 @@
           <form id="update-form">
             <div>
               <label for="name">First Name:</label>
-              <input type="text" id="name" required />
+              <input type="text" id="name" required autofocus />
             </div>
             <div>
               <label for="last">Last Name:</label>
@@ -64,7 +64,25 @@
 
             <div>
               <label for="date">Date of Birth:</label>
-              <input type="date" id="date" required />
+              <input type="date" id="date" required min="1999-01-01" />
+            </div>
+            <div>
+              <label for="gender">Gender:</label>
+              <input type="text" id="gender" required autocomplete="on" />
+              <datalist id="genders">
+                <option value="Male"></option>
+                <option value="Female"></option>
+              </datalist>
+            </div>
+            <div>
+              <label for="phone">Phone number:</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="04X-XXX-XXX"
+                pattern="0[3-4]{1}[0-9]{1}-[0-9]{3}-[0-9]{3}"
+              />
             </div>
             <div>
               <label for="password">Password:</label>
@@ -96,7 +114,8 @@
       </div>
     </footer>
   </body>
-
+  <script src="js/scripts.js"></script>
+  <script src="js/jquery.js"></script>
   <script type="module" src="js/modules/firebase.js"></script>
   <script type="module">
     import {
@@ -112,15 +131,19 @@
     } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 
     document.addEventListener("DOMContentLoaded", () => {
+      getLocation();
       const form = document.getElementById("update-form");
       const logoutButton = document.getElementById("logout-button");
       const name = document.getElementById("name");
       const last = document.getElementById("last");
       const email = document.getElementById("email");
       const date = document.getElementById("date");
+      const gender = document.getElementById("gender");
+      const phone = document.getElementById("phone");
       const password = document.getElementById("password");
       const confirm = document.getElementById("confirm");
       const account = document.querySelector("#account");
+      const warning = document.querySelector("#warning");
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           account.href = "profile.html";
@@ -133,6 +156,8 @@
             last.value = data.surname ? data.surname : "";
             email.value = data.email ? data.email : "";
             date.value = data.dateOfBirth ? data.dateOfBirth : "";
+            gender.value = data.gender ? data.gender : "";
+            phone.value = data.phone ? data.phone : "";
 
             form.addEventListener("submit", async (e) => {
               e.preventDefault();
@@ -142,6 +167,8 @@
                   surname: last.value,
                   email: email.value,
                   dateOfBirth: date.value,
+                  gender: gender.value,
+                  phone: phone.value,
                 };
                 await updateUser(user.uid, userData);
                 if (email.value !== data.email) {
@@ -150,7 +177,10 @@
                 if (password.value === confirm.value) {
                   await updatePassword(user, password.value);
                 } else {
-                  console.log("passwords dont match");
+                  warning.innerText = "Passwords Don't Match";
+                }
+                if (warning.innerHTML === "") {
+                  warning.innerHTML = "Updated Profile Succesfuly";
                 }
               } catch (error) {
                 document.getElementById("warning").innerText = error.message;
