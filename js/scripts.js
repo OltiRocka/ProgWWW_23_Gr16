@@ -323,10 +323,19 @@ function createSearchNews(results) {
 function createPagination(totalPages, currentPage, search) {
   const paginationContainer = document.querySelector(".pagination");
   let max_pag;
+  let mid_page;
+  let beg_page;
+  let end_page;
   if (window.innerWidth <= 600) {
     max_pag = 3;
+    mid_page = 2;
+    beg_page = 1;
+    end_page = 1;
   } else {
     max_pag = 10;
+    mid_page = 5;
+    beg_page = 4;
+    end_page = 5;
   }
   paginationContainer.innerHTML = "";
 
@@ -344,13 +353,13 @@ function createPagination(totalPages, currentPage, search) {
   let startPage = 1;
   let endPage = totalPages > max_pag ? max_pag : totalPages;
 
-  if (currentPage > 5 && totalPages > max_pag) {
-    startPage = currentPage - 4;
-    endPage = currentPage + 5;
+  if (currentPage > mid_page && totalPages > max_pag) {
+    startPage = currentPage - beg_page;
+    endPage = currentPage + end_page;
 
     if (endPage > totalPages) {
       endPage = totalPages;
-      startPage = totalPages - 9;
+      startPage = totalPages - max_pag + 1;
     }
   }
 
