@@ -1,5 +1,3 @@
-# News Website
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="/assets/RokaLogoDarkMode.svg">
   <source media="(prefers-color-scheme: light)" srcset="/assets/RokaLogo.svg">
