@@ -6,8 +6,10 @@ main {
   background-image: url("/assets/paper.png");
   background-repeat: repeat;
   background-attachment: fixed;
+  background-size: contain;
+  background-origin: padding-box;
   margin-top: 50px;
-  border: 1px solid #ddd;
+  border-image: linear-gradient(#f6b73c, #4d9f0c) 30;
   border-radius: 12px;
   width: 600px;
   display: flex;
@@ -71,18 +73,34 @@ main {
   color: #ff5c00;
 }
 
-/* Button styling */
 #form-container form button {
   padding: 10px 40px;
   border: none;
-  background-color: #ff5c00;
+  background: linear-gradient(90deg, #ff701d, #ff0000);
   color: white;
   border-radius: 4px;
   cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  position: relative;
+  z-index: 0;
 }
 
-#form-container form button:hover {
-  background-color: #ff5e0098;
+#form-container form button::before {
+  content: "";
+  background: #ff5c00;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 4px;
+  z-index: -1;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+#form-container form button:hover::before {
+  opacity: 0;
 }
 .already_container {
   display: flex;

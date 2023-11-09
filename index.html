@@ -68,7 +68,8 @@
           const section = document.createElement("section");
           section.id = category;
           const h3 = document.createElement("h3");
-          h3.textContent = category.toUpperCase();
+          h3.innerHTML =
+            category.toUpperCase() + " - &Ccedil;&euml;shtje Aktuale";
           section.appendChild(h3);
 
           const newsContainer = document.createElement("div");
@@ -206,6 +207,66 @@
               </audio>
             </div>
           </div>
+          <div id="top-companies">
+            <h3 style="text-align: center">Top Companies</h3>
+            <ol>
+              <li>
+                Apple Inc.
+                <dl>
+                  <dt>Ticker:</dt>
+                  <dd>AAPL</dd>
+                  <dt>Industry:</dt>
+                  <dd>Technology</dd>
+                  <dt>CEO:</dt>
+                  <dd>Tim Cook</dd>
+                </dl>
+              </li>
+              <li>
+                Microsoft Corporation
+                <dl>
+                  <dt>Ticker:</dt>
+                  <dd>MSFT</dd>
+                  <dt>Industry:</dt>
+                  <dd>Technology</dd>
+                  <dt>CEO:</dt>
+                  <dd>Satya Nadella</dd>
+                </dl>
+              </li>
+              <li>
+                Amazon.com Inc.
+                <dl>
+                  <dt>Ticker:</dt>
+                  <dd>AMZN</dd>
+                  <dt>Industry:</dt>
+                  <dd>E-commerce, Cloud Computing</dd>
+                  <dt>CEO:</dt>
+                  <dd>Andy Jassy</dd>
+                </dl>
+              </li>
+              <li>
+                Alphabet Inc. (Google)
+                <dl>
+                  <dt>Ticker:</dt>
+                  <dd>GOOGL</dd>
+                  <dt>Industry:</dt>
+                  <dd>Technology, Internet Services</dd>
+                  <dt>CEO:</dt>
+                  <dd>Sundar Pichai</dd>
+                </dl>
+              </li>
+              <li>
+                Tesla, Inc.
+                <dl>
+                  <dt>Ticker:</dt>
+                  <dd>TSLA</dd>
+                  <dt>Industry:</dt>
+                  <dd>Automotive, Energy Storage</dd>
+                  <dt>CEO:</dt>
+                  <dd>Elon Musk</dd>
+                </dl>
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
     </main>
@@ -215,6 +276,7 @@
           Made by <a href="mailto:olti@roka.dev">Olti Roka</a>.<br />
           Visit me at:
           <a href="https://roka.dev">Roka.Dev</a><br />
+          <a href="/assets/OltiRokaResume.pdf" target="_blank">Resume</a>
         </address>
         <p>&copy; 2023 Roka News</p>
       </div>
