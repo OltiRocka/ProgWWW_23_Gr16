@@ -1,8 +1,8 @@
-<picture>
+<a href="https://news.roka.dev"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="/assets/RokaLogoDarkMode.svg">
   <source media="(prefers-color-scheme: light)" srcset="/assets/RokaLogo.svg">
   <img alt="logo" src="/assets/RokaLogoDarkMode.svg">
-</picture>
+</picture></a>
 
 ## Overview
 This repository contains the code for a dynamic news website that aggregates and displays content from CNN, including articles, videos, and photos. It features a search functionality leveraging CNN's search endpoint, a financial data section with local radio streams, live TV broadcasting, and a dedicated stream for Big Brother VIP Kosova. The site also implements user authentication and profile management with Firebase Auth and Firestore database.
